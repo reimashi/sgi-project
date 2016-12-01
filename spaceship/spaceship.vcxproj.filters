@@ -7,18 +7,36 @@
     <Filter Include="OpenGL">
       <UniqueIdentifier>{9038a088-c195-467f-aefb-e8c008cee359}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Core">
+      <UniqueIdentifier>{d45be239-a483-48fc-a5d3-bcf60dbbd521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Types">
+      <UniqueIdentifier>{6e73f82e-2399-4ab8-aa43-56367e0a7b04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="opengl\glig.c">
       <Filter>OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="engine\core\engine.cpp" />
+    <ClCompile Include="engine\types\point2d.cpp" />
+    <ClCompile Include="engine\types\point3d.cpp" />
+    <ClCompile Include="engine\types\dimension2d.cpp" />
+    <ClCompile Include="engine\types\dimension3d.cpp" />
+    <ClCompile Include="scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="opengl\glig.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Program.h" />
+    <ClInclude Include="engine\core\engine.h" />
+    <ClInclude Include="engine\types\point2d.h" />
+    <ClInclude Include="engine\types\point3d.h" />
+    <ClInclude Include="engine\types\dimension2d.h" />
+    <ClInclude Include="engine\types\dimension3d.h" />
+    <ClInclude Include="scene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
