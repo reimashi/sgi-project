@@ -5,6 +5,6 @@ class Program
 public:
 	Program();
 	~Program();
-	void Main(int argc, char *argv[]);
+	int Main(int argc, char *argv[]);
 };
 

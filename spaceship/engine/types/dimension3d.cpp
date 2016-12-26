@@ -18,5 +18,9 @@ namespace Engine {
 		void Dimension3D::setDepth(std::int32_t depth) {
 			this->depth = depth;
 		}
+
+		Dimension3D* Dimension3D::clone() const {
+			return new Dimension3D(this->getWidth(), this->getHeight(), this->getDepth());
+		}
 	}
 }

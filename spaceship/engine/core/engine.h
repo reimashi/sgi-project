@@ -1,19 +1,38 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <cstdbool>
+#include <gl/glut.h>
+
+#include "./scene.h"
 #include "../types/dimension2d.h"
+#include "../utils/singleton.h"
 
 namespace Engine {
 	namespace Core {
-		class Engine
+		class Engine : public Utils::Singleton<Engine>
 		{
-		public:
-			Engine(Types::Dimension2D size);
+			friend class Utils::Singleton<Engine>;
+
+		private:
+			int windowPtr = NULL;
+			Core::Scene *scenePtr = NULL;
+			Types::Dimension2D *windowSize = NULL;
+
+			Engine();
 			~Engine();
 
-			bool run();
+			void loop();
+
+			static void loopCallback();
+			static void reshapeCallback(GLsizei width, GLsizei height);
+
+		public:
+			void run(Core::Scene *scene);
 			void setTitle(std::string title);
+			void resize(Types::Dimension2D *size);
+			Types::Dimension2D* getSize() const;
 		};
 	}
 }

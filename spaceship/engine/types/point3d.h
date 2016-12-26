@@ -3,7 +3,7 @@
 
 namespace Engine {
 	namespace Types {
-		class Point3D : Point2D
+		class Point3D : public Point2D
 		{
 		protected:
 			float z;

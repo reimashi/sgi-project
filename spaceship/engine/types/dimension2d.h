@@ -19,6 +19,8 @@ namespace Engine {
 
 			std::int32_t getHeight() const;
 			void setHeight(std::int32_t x);
+
+			Dimension2D* clone() const;
 		};
 	}
 }

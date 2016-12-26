@@ -77,6 +77,7 @@
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>C:\Users\reima\Documents\GitHub\sgi-project\spaceship\packages\freeglut.2.8.1.15\build\native\lib\v110\x64\Debug\static;$(LibraryPath)</LibraryPath>
     <Linkage-freeglut>static</Linkage-freeglut>
+    <IncludePath>C:\Users\reima\Documents\GitHub\sgi-project\spaceship\packages\freeglut.2.8.1.15\build\native\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -109,6 +110,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>freeglut.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\reima\Documents\GitHub\sgi-project\spaceship\packages\freeglut.2.8.1.15\build\native\lib\v110\x64\Debug\dynamic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -147,23 +149,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="engine\core\engine.cpp" />
+    <ClCompile Include="engine\core\scene.cpp" />
     <ClCompile Include="engine\types\dimension2d.cpp" />
     <ClCompile Include="engine\types\dimension3d.cpp" />
     <ClCompile Include="engine\types\point2d.cpp" />
     <ClCompile Include="engine\types\point3d.cpp" />
     <ClCompile Include="opengl\glig.c" />
     <ClCompile Include="Program.cpp" />
-    <ClCompile Include="scene.cpp" />
+    <ClCompile Include="engine\core\scene_object.cpp" />
+    <ClCompile Include="ship_object.cpp" />
+    <ClCompile Include="SpaceshipScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\core\engine.h" />
+    <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\types\dimension2d.h" />
     <ClInclude Include="engine\types\dimension3d.h" />
     <ClInclude Include="engine\types\point2d.h" />
     <ClInclude Include="engine\types\point3d.h" />
+    <ClInclude Include="engine\utils\Singleton.h" />
     <ClInclude Include="opengl\glig.h" />
     <ClInclude Include="Program.h" />
-    <ClInclude Include="scene.h" />
+    <ClInclude Include="engine\core\scene.h" />
+    <ClInclude Include="engine\core\scene_object.h" />
+    <ClInclude Include="ship_object.h" />
+    <ClInclude Include="SpaceshipScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

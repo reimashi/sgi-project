@@ -27,5 +27,9 @@ namespace Engine {
 		void Dimension2D::setHeight(std::int32_t height) {
 			this->height = height;
 		}
+
+		Dimension2D* Dimension2D::clone() const {
+			return new Dimension2D(this->getWidth(), this->getHeight());
+		}
 	}
 }

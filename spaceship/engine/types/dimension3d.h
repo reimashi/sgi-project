@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dimension2d.h";
+#include "dimension2d.h"
 
 namespace Engine {
 	namespace Types {
@@ -15,6 +15,8 @@ namespace Engine {
 
 			std::int32_t getDepth() const;
 			void setDepth(std::int32_t depth);
+
+			Dimension3D* clone() const;
 		};
 	}
 }
