@@ -1,4 +1,6 @@
 #pragma once
+
+#include <cmath>
 #include "point2d.h"
 
 namespace Engine {
@@ -6,14 +8,14 @@ namespace Engine {
 		class Point3D : public Point2D
 		{
 		protected:
-			float z;
+			float_t z;
 
 		public:
-			Point3D(float x, float y, float z);
+			Point3D(float_t x, float_t y, float_t z);
 			~Point3D();
 
-			float getZ() const;
-			void setZ(float z);
+			float_t getZ() const;
+			void setZ(float_t z);
 		};
 	}
 }

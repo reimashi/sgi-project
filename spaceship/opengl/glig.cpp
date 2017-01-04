@@ -174,34 +174,45 @@ void igWireSemiSphere(int pu, int pv) {
 
 void igWireCubo(void) { igWireCuboSize(1.0); }
 
-void igWireCuboSize(float size) {
-	glBegin(GL_LINE_LOOP);
+std::list<Engine::Types::Point3D> vertexCuboSize(float size) {
+	std::list<Engine::Types::Point3D> vertexList;
 
 	float l = size / 2;
 
 	//aristas traseras
-	glVertex3f(-l, -l, -l);
-	glVertex3f(l, -l, -l);
-	glVertex3f(l, l, -l);
-	glVertex3f(-l, l, -l);
-	glVertex3f(-l, -l, -l);
+	vertexList.push_back(Engine::Types::Point3D(-l, -l, -l));
+	vertexList.push_back(Engine::Types::Point3D(l, -l, -l));
+	vertexList.push_back(Engine::Types::Point3D(l, l, -l));
+	vertexList.push_back(Engine::Types::Point3D(-l, l, -l));
+	vertexList.push_back(Engine::Types::Point3D(-l, -l, -l));
 
 	//parte delantera
-	glVertex3f(-l, -l, l);
-	glVertex3f(-l, l, l);
-	glVertex3f(l, l, l);
-	glVertex3f(l, -l, l);
-	glVertex3f(-l, -l, l);
+	vertexList.push_back(Engine::Types::Point3D(-l, -l, l));
+	vertexList.push_back(Engine::Types::Point3D(-l, l, l));
+	vertexList.push_back(Engine::Types::Point3D(l, l, l));
+	vertexList.push_back(Engine::Types::Point3D(l, -l, l));
+	vertexList.push_back(Engine::Types::Point3D(-l, -l, l));
 
 	//lado izquierdo
-	glVertex3f(-l, -l, -l);
-	glVertex3f(-l, -l, l);
-	glVertex3f(-l, l, l);
-	glVertex3f(-l, l, -l);
-	glVertex3f(l, l, -l);
-	glVertex3f(l, l, l);
-	glVertex3f(l, -l, l);
-	glVertex3f(l, -l, -l);
+	vertexList.push_back(Engine::Types::Point3D(-l, -l, -l));
+	vertexList.push_back(Engine::Types::Point3D(-l, -l, l));
+	vertexList.push_back(Engine::Types::Point3D(-l, l, l));
+	vertexList.push_back(Engine::Types::Point3D(-l, l, -l));
+	vertexList.push_back(Engine::Types::Point3D(l, l, -l));
+	vertexList.push_back(Engine::Types::Point3D(l, l, l));
+	vertexList.push_back(Engine::Types::Point3D(l, -l, l));
+	vertexList.push_back(Engine::Types::Point3D(l, -l, -l));
+
+	return vertexList;
+}
+
+void igWireCuboSize(float size) {
+	glBegin(GL_LINE_LOOP);
+
+	std::list<Engine::Types::Point3D> vertexList = vertexCuboSize(size);
+
+	for (std::list<Engine::Types::Point3D>::iterator it = vertexList.begin(); it != vertexList.end(); it++)
+		glVertex3d(it->getX(), it->getY(), it->getZ());
 
 	glEnd();
 }

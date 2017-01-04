@@ -1,24 +1,24 @@
 #pragma once
 
-#include <cstdint>
+#include <cmath>
 
 namespace Engine {
 	namespace Types {
 		class Dimension2D
 		{
 		protected:
-			std::int32_t width;
-			std::int32_t height;
+			std::float_t width;
+			std::float_t height;
 
 		public:
-			Dimension2D(std::int32_t width, std::int32_t height);
+			Dimension2D(std::float_t width, std::float_t height);
 			~Dimension2D();
 
-			std::int32_t getWidth() const;
-			void setWidth(std::int32_t width);
+			std::float_t getWidth() const;
+			void setWidth(std::float_t width);
 
-			std::int32_t getHeight() const;
-			void setHeight(std::int32_t x);
+			std::float_t getHeight() const;
+			void setHeight(std::float_t x);
 
 			Dimension2D* clone() const;
 		};

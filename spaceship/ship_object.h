@@ -4,7 +4,7 @@
 
 using namespace Engine;
 
-class ShipObject : public Core::SceneObject
+class ShipObject : public Core::Object3D
 {
 public:
 	ShipObject();

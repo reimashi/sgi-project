@@ -1,16 +1,16 @@
-#include "scene_object.h"
+#include "object3d.h"
 
 namespace Engine {
 	namespace Core {
-		SceneObject::SceneObject()
+		Object3D::Object3D() : position(0, 0, 0), rotation(0, 0, 0), visible(true)
 		{
 		}
 
-		SceneObject::~SceneObject()
+		Object3D::~Object3D()
 		{
 		}
 
-		void SceneObject::compile()
+		/*void Object3D::compile()
 		{
 			if (!this->glCompiled) {
 				if (this->glListPtr != 0) {
@@ -27,6 +27,6 @@ namespace Engine {
 				glPopMatrix();
 				glEndList();
 			}
-		}
+		}*/
 	}
 }

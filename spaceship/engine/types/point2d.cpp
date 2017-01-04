@@ -2,7 +2,7 @@
 
 namespace Engine {
 	namespace Types {
-		Point2D::Point2D(float x, float y)
+		Point2D::Point2D(float_t x, float_t y)
 		{
 			this->x = x;
 			this->y = y;
@@ -12,19 +12,19 @@ namespace Engine {
 		{
 		}
 
-		float Point2D::getX() const {
+		float_t Point2D::getX() const {
 			return this->x;
 		}
 
-		void Point2D::setX(float x) {
+		void Point2D::setX(float_t x) {
 			this->x = x;
 		}
 
-		float Point2D::getY() const {
+		float_t Point2D::getY() const {
 			return this->y;
 		}
 
-		void Point2D::setY(float y) {
+		void Point2D::setY(float_t y) {
 			this->y = y;
 		}
 	}

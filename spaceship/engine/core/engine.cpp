@@ -13,7 +13,7 @@ namespace Engine {
 
 			glutInit(&myargc, myargv);
 			glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-			glutInitWindowSize(windowSize->getWidth(), windowSize->getHeight());
+			glutInitWindowSize((int)windowSize->getWidth(), (int)windowSize->getHeight());
 			glutInitWindowPosition(0, 0);
 			this->windowPtr = glutCreateWindow("Engine");
 		}
@@ -72,7 +72,7 @@ namespace Engine {
 		void Engine::resize(Types::Dimension2D *size) {
 			glutSetWindow(this->windowPtr);
 			this->windowSize = size;
-			glutReshapeWindow(this->windowSize->getWidth(), this->windowSize->getHeight());
+			glutReshapeWindow((int)this->windowSize->getWidth(), (int)this->windowSize->getHeight());
 		}
 
 		Types::Dimension2D* Engine::getSize() const {

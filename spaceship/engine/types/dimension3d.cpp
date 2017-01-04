@@ -2,7 +2,7 @@
 
 namespace Engine {
 	namespace Types {
-		Dimension3D::Dimension3D(std::int32_t width, std::int32_t height, std::int32_t depth) : Dimension2D(width, height)
+		Dimension3D::Dimension3D(float_t width, float_t height, float_t depth) : Dimension2D(width, height)
 		{
 			this->depth = depth;
 		}
@@ -11,11 +11,11 @@ namespace Engine {
 		{
 		}
 
-		std::int32_t Dimension3D::getDepth() const {
+		float_t Dimension3D::getDepth() const {
 			return this->depth;
 		}
 
-		void Dimension3D::setDepth(std::int32_t depth) {
+		void Dimension3D::setDepth(float_t depth) {
 			this->depth = depth;
 		}
 

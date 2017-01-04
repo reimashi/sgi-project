@@ -1,22 +1,24 @@
 #pragma once
 
+#include <cmath>
+
 namespace Engine {
 	namespace Types {
 		class Point2D
 		{
 		protected:
-			float x;
-			float y;
+			float_t x;
+			float_t y;
 
 		public:
-			Point2D(float x, float y);
+			Point2D(float_t x, float_t y);
 			~Point2D();
 
-			float getX() const;
-			void setX(float x);
+			float_t getX() const;
+			void setX(float_t x);
 
-			float getY() const;
-			void setY(float x);
+			float_t getY() const;
+			void setY(float_t x);
 		};
 	}
 }

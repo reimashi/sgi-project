@@ -11,6 +11,9 @@
 #ifndef GLIG_H
 #define GLIG_H
 
+#include <list>
+#include "../engine/types/point3d.h"
+
 /* Devuelve la coordenada x de un punto en R3 a partir de un punto (u,v) */
 float xSuperQuadric(float u, float v, float R, float s1, float s2);
 
@@ -30,6 +33,7 @@ void igWireSemiSphere(int pu, int pv);
 
 void igWireCubo(void);
 void igWireCuboSize(float size);
+std::list<Engine::Types::Point3D> vertexCuboSize(float size);
 
 void igWireCone(int pu, int pv);
 

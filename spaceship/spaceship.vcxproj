@@ -154,9 +154,10 @@
     <ClCompile Include="engine\types\dimension3d.cpp" />
     <ClCompile Include="engine\types\point2d.cpp" />
     <ClCompile Include="engine\types\point3d.cpp" />
-    <ClCompile Include="opengl\glig.c" />
+    <ClCompile Include="engine\core\geometry.cpp" />
+    <ClCompile Include="opengl\glig.cpp" />
     <ClCompile Include="Program.cpp" />
-    <ClCompile Include="engine\core\scene_object.cpp" />
+    <ClCompile Include="engine\core\object3d.cpp" />
     <ClCompile Include="ship_object.cpp" />
     <ClCompile Include="SpaceshipScene.cpp" />
   </ItemGroup>
@@ -168,10 +169,11 @@
     <ClInclude Include="engine\types\point2d.h" />
     <ClInclude Include="engine\types\point3d.h" />
     <ClInclude Include="engine\utils\Singleton.h" />
+    <ClInclude Include="engine\core\geometry.h" />
     <ClInclude Include="opengl\glig.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="engine\core\scene.h" />
-    <ClInclude Include="engine\core\scene_object.h" />
+    <ClInclude Include="engine\core\object3d.h" />
     <ClInclude Include="ship_object.h" />
     <ClInclude Include="SpaceshipScene.h" />
   </ItemGroup>
