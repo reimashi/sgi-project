@@ -8,6 +8,8 @@ namespace Engine {
 			explicit Scene();
 
 			virtual void loop() = 0;
+
+			// setCamera
 		};
 	}
 }

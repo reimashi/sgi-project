@@ -8,6 +8,7 @@
 #include "./scene.h"
 #include "../types/dimension2d.h"
 #include "../utils/singleton.h"
+#include "../utils/logger.h"
 
 namespace Engine {
 	namespace Core {
@@ -16,6 +17,8 @@ namespace Engine {
 			friend class Utils::Singleton<Engine>;
 
 		private:
+			static Utils::Logger* logger;
+
 			int windowPtr = NULL;
 			Core::Scene *scenePtr = NULL;
 			Types::Dimension2D *windowSize = NULL;

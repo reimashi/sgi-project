@@ -2,12 +2,20 @@
 
 namespace Engine {
 	namespace Core {
-		Object3D::Object3D() : position(0, 0, 0), rotation(0, 0, 0), visible(true)
+		Object3D::Object3D() : visible(true)
 		{
 		}
 
 		Object3D::~Object3D()
 		{
+		}
+
+		void Object3D::setVisibility(bool show) {
+			this->visible = show;
+		}
+
+		bool Object3D::isVisible() {
+			return this->visible;
 		}
 
 		/*void Object3D::compile()

@@ -2,6 +2,7 @@
 
 namespace Engine {
 	namespace Core {
+		Utils::Logger* Engine::logger = Utils::Logger::getLogger("Engine::Core::Engine");
 
 		Engine::Engine()
 		{
@@ -23,11 +24,15 @@ namespace Engine {
 		}
 
 		void Engine::loopCallback() {
+			logger->trace(__FUNCTION__, "Ejecucion del loop");
+
 			Core::Engine *engine = &Core::Engine::getInstance();
 			engine->loop();
 		}
 
 		void Engine::reshapeCallback(GLsizei width, GLsizei height) {
+			logger->debug(__FUNCTION__, "Cambio de resolucion a " + std::to_string(width) + "x" + std::to_string(height));
+			
 			Core::Engine *engine = &Core::Engine::getInstance();
 			Types::Dimension2D* windowSize = engine->getSize();
 			
@@ -40,17 +45,22 @@ namespace Engine {
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
-				gluPerspective(60.0, (GLdouble)width / (GLdouble)height, 1.0, 150.0);
+				glOrtho(-2.0, 2.0, -2.0*(GLfloat)height / (GLfloat)width, 2.0*(GLdouble)height / (GLfloat)width, -2.0, 2.0);
+				//gluPerspective(60.0, (GLdouble)width / (GLdouble)height, 1.0, 150.0);
 			}
 		}
 
 		void Engine::loop() {
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			if (this->scenePtr != NULL) {
 				this->scenePtr->loop();
 			}
 			else {
-				std::wcout << "La escena no es valida" << std::endl;
+				logger->error(__FUNCTION__, "No se ha definido una escena. Se ignora el loop");
 			}
+
+			glFlush();
 		}
 
 		// Public methods

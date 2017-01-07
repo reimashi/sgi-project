@@ -11,10 +11,6 @@ namespace Engine {
 				static T instance;
 				return instance;
 			}
-
-			// No implementar. Evita copias de instancias singleton.
-			/*T(T const&);
-			void operator=(T const&);*/
 		};
 	}
 }

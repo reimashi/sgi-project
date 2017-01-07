@@ -148,6 +148,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\io\controller.cpp" />
+    <ClCompile Include="engine\utils\logger.cpp" />
     <ClCompile Include="engine\core\engine.cpp" />
     <ClCompile Include="engine\core\scene.cpp" />
     <ClCompile Include="engine\types\dimension2d.cpp" />
@@ -158,10 +160,13 @@
     <ClCompile Include="opengl\glig.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="engine\core\object3d.cpp" />
+    <ClCompile Include="engine\core\scene_object.cpp" />
     <ClCompile Include="ship_object.cpp" />
     <ClCompile Include="SpaceshipScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\io\controller.h" />
+    <ClInclude Include="engine\utils\logger.h" />
     <ClInclude Include="engine\core\engine.h" />
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\types\dimension2d.h" />
@@ -174,6 +179,7 @@
     <ClInclude Include="Program.h" />
     <ClInclude Include="engine\core\scene.h" />
     <ClInclude Include="engine\core\object3d.h" />
+    <ClInclude Include="engine\core\scene_object.h" />
     <ClInclude Include="ship_object.h" />
     <ClInclude Include="SpaceshipScene.h" />
   </ItemGroup>

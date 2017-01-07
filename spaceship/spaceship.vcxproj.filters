@@ -29,6 +29,9 @@
     <ClCompile Include="opengl\glig.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="engine\core\scene_object.cpp" />
+    <ClCompile Include="engine\utils\logger.cpp" />
+    <ClCompile Include="engine\io\controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="opengl\glig.h">
@@ -43,10 +46,13 @@
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\core\scene.h" />
     <ClInclude Include="SpaceshipScene.h" />
-    <ClInclude Include="engine\utils\Singleton.h" />
     <ClInclude Include="ship_object.h" />
     <ClInclude Include="engine\core\geometry.h" />
     <ClInclude Include="engine\core\object3d.h" />
+    <ClInclude Include="engine\core\scene_object.h" />
+    <ClInclude Include="engine\utils\Singleton.h" />
+    <ClInclude Include="engine\utils\logger.h" />
+    <ClInclude Include="engine\io\controller.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

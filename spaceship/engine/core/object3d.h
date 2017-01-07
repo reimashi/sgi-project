@@ -4,11 +4,15 @@
 #include <gl/glut.h>
 
 #include "./geometry.h"
+#include "./scene_object.h"
 #include "../types/point3d.h"
 
 namespace Engine {
 	namespace Core {
-		class Object3D
+		/// <summary>
+		/// Clase que representa un objeto de 3 dimensiones.
+		/// </summary>
+		class Object3D : public SceneObject
 		{
 		public:
 			Object3D();
@@ -16,29 +20,17 @@ namespace Engine {
 
 			void draw();
 
-			void rotate(float_t x, float_t y, float_t z);
-			void translate(float_t x, float_t y, float_t z);
 			void setVisibility(bool show);
 			bool isVisible();
 
-			void addChild(Object3D* child);
-			void removeChild(Object3D* child);
-
 		private:
 			Geometry geometry;
-			std::list<Object3D*> childs;
-			Object3D* parent = NULL;
 
 			GLuint glListPtr = 0;
 			bool glCompiled = false;
 
-			void compile();
-
-			Types::Point3D rotation;
-			Types::Point3D position;
+			//void compile();
 			bool visible;
-
-			void setParent(Object3D* parent);
 		};
 	}
 }

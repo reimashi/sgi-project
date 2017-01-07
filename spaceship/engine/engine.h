@@ -9,3 +9,5 @@
 #include "core/object3d.h"
 #include "core/scene.h"
 #include "core/engine.h"
+
+#include "utils/logger.h"
