@@ -27,5 +27,20 @@ namespace Engine {
 		void Point2D::setY(float_t y) {
 			this->y = y;
 		}
+
+		Point2D* Point2D::clone() const {
+			return new Point2D(this->getX(), this->getY());
+		}
+
+		bool Point2D::operator==(const Point2D& rhs) const
+		{
+			return (this->x == rhs.getX())
+				&& (this->y == rhs.getY());
+		}
+
+		bool Point2D::operator!=(const Point2D& rhs) const
+		{
+			return !operator==(rhs);
+		}
 	}
 }

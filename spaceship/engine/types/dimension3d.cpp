@@ -22,5 +22,17 @@ namespace Engine {
 		Dimension3D* Dimension3D::clone() const {
 			return new Dimension3D(this->getWidth(), this->getHeight(), this->getDepth());
 		}
+
+		bool Dimension3D::operator==(const Dimension3D& rhs) const
+		{
+			return (this->height == rhs.getHeight())
+				&& (this->width == rhs.getWidth())
+				&& (this->depth == rhs.getDepth());
+		}
+
+		bool Dimension3D::operator!=(const Dimension3D& rhs) const
+		{
+			return !operator==(rhs);
+		}
 	}
 }

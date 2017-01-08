@@ -18,6 +18,9 @@ namespace Engine {
 			void setDepth(std::float_t depth);
 
 			Dimension3D* clone() const;
+
+			bool operator==(const Dimension3D& rhs) const;
+			bool operator!=(const Dimension3D& rhs) const;
 		};
 	}
 }

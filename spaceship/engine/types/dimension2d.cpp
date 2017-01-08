@@ -31,5 +31,16 @@ namespace Engine {
 		Dimension2D* Dimension2D::clone() const {
 			return new Dimension2D(this->getWidth(), this->getHeight());
 		}
+
+		bool Dimension2D::operator==(const Dimension2D& rhs) const
+		{
+			return (this->height == rhs.getHeight())
+				&& (this->width == rhs.getWidth());
+		}
+
+		bool Dimension2D::operator!=(const Dimension2D& rhs) const
+		{
+			return !operator==(rhs);
+		}
 	}
 }

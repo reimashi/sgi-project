@@ -6,22 +6,79 @@ namespace Engine {
 
 		Engine::Engine()
 		{
+			this->controller = &IO::Controller::getInstance();
+
 			this->windowSize = new Types::Dimension2D(800, 600);
 
 			char *myargv[1];
 			int myargc = 1;
-			myargv[0] = _strdup("Engine");
+			myargv[0] = _strdup(DEFAULT_WINDOW_TITLE);
 
 			glutInit(&myargc, myargv);
 			glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 			glutInitWindowSize((int)windowSize->getWidth(), (int)windowSize->getHeight());
 			glutInitWindowPosition(0, 0);
-			this->windowPtr = glutCreateWindow("Engine");
+			this->windowTitle = DEFAULT_WINDOW_TITLE;
+			this->windowPtr = glutCreateWindow(DEFAULT_WINDOW_TITLE);
 		}
 
 		Engine::~Engine()
 		{
 		}
+
+		void Engine::loop() {
+			//glClear(GL_COLOR_BUFFER_BIT);
+
+			if (this->scenePtr != NULL) {
+				this->scenePtr->loop();
+			}
+			else {
+				logger->error(__FUNCTION__, "No se ha definido una escena. Se ignora el loop");
+			}
+
+			glFlush();
+
+			// Preparamos el controlador para el proximo frame
+			this->controller->startUpdate();
+		}
+
+		// Public methods
+
+		void Engine::run(Core::Scene *scene) {
+			this->scenePtr = scene;
+
+			glutDisplayFunc(Engine::loopCallback);
+			glutReshapeFunc(Engine::reshapeCallback);
+			glutMouseFunc(Engine::mouseCallback);
+			glutEntryFunc(Engine::mouseEntryCallback);
+			glutMotionFunc(Engine::mouseMotionCallback);
+			glutPassiveMotionFunc(Engine::mouseMotionCallback);
+			glutKeyboardFunc(Engine::keyboardCallback);
+			glutSpecialFunc(Engine::keyboardSpecialCallback);
+
+			glutMainLoop();
+		}
+
+		void Engine::setTitle(std::string title) {
+			glutSetWindow(this->windowPtr);
+			glutSetWindowTitle(title.c_str());
+		}
+
+		std::string Engine::getTitle() const {
+			return this->windowTitle;
+		}
+
+		void Engine::resize(Types::Dimension2D *size) {
+			glutSetWindow(this->windowPtr);
+			this->windowSize = size;
+			glutReshapeWindow((int)this->windowSize->getWidth(), (int)this->windowSize->getHeight());
+		}
+
+		Types::Dimension2D* Engine::getSize() const {
+			return this->windowSize->clone();
+		}
+
+#pragma region Callbacks de GLUT
 
 		void Engine::loopCallback() {
 			logger->trace(__FUNCTION__, "Ejecucion del loop");
@@ -32,10 +89,10 @@ namespace Engine {
 
 		void Engine::reshapeCallback(GLsizei width, GLsizei height) {
 			logger->debug(__FUNCTION__, "Cambio de resolucion a " + std::to_string(width) + "x" + std::to_string(height));
-			
+
 			Core::Engine *engine = &Core::Engine::getInstance();
 			Types::Dimension2D* windowSize = engine->getSize();
-			
+
 			if ((int)windowSize->getWidth() != (int)width || (int)windowSize->getHeight() != (int)height) {
 				engine->resize(windowSize);
 			}
@@ -50,43 +107,44 @@ namespace Engine {
 			}
 		}
 
-		void Engine::loop() {
-			glClear(GL_COLOR_BUFFER_BIT);
+		void Engine::mouseCallback(int button, int state, int x, int y) {
+			Core::Engine *engine = &Core::Engine::getInstance();
 
-			if (this->scenePtr != NULL) {
-				this->scenePtr->loop();
+			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF200 & button));
+			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
+		}
+
+		void Engine::mouseEntryCallback(int state) {
+			Core::Engine *engine = &Core::Engine::getInstance();
+
+			if (engine->scenePtr != NULL) {
+				if (state == GLUT_LEFT) engine->scenePtr->onWindowBlur();
+				else if (state == GLUT_ENTERED) engine->scenePtr->onWindowFocus();
 			}
-			else {
-				logger->error(__FUNCTION__, "No se ha definido una escena. Se ignora el loop");
-			}
-
-			glFlush();
 		}
 
-		// Public methods
+		void Engine::mouseMotionCallback(int x, int y) {
+			Core::Engine *engine = &Core::Engine::getInstance();
 
-		void Engine::run(Core::Scene *scene) {
-			this->scenePtr = scene;
-
-			glutDisplayFunc(this->loopCallback);
-			glutReshapeFunc(this->reshapeCallback);
-
-			glutMainLoop();
+			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
 		}
 
-		void Engine::setTitle(std::string title) {
-			glutSetWindow(this->windowPtr);
-			glutSetWindowTitle(title.c_str());
+		void Engine::keyboardCallback(unsigned char key, int x, int y) {
+			Core::Engine *engine = &Core::Engine::getInstance();
+
+			if (key > 0x40 && key < 0x5B) { key += 0x20; }
+
+			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(key));
+			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
 		}
 
-		void Engine::resize(Types::Dimension2D *size) {
-			glutSetWindow(this->windowPtr);
-			this->windowSize = size;
-			glutReshapeWindow((int)this->windowSize->getWidth(), (int)this->windowSize->getHeight());
+		void Engine::keyboardSpecialCallback(int key, int x, int y) {
+			Core::Engine *engine = &Core::Engine::getInstance();
+
+			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF000 & key));
+			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
 		}
 
-		Types::Dimension2D* Engine::getSize() const {
-			return this->windowSize->clone();
-		}
+#pragma endregion
 	}
 }

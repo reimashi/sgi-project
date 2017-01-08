@@ -21,6 +21,9 @@ namespace Engine {
 			void setHeight(std::float_t x);
 
 			Dimension2D* clone() const;
+
+			bool operator==(const Dimension2D& rhs) const;
+			bool operator!=(const Dimension2D& rhs) const;
 		};
 	}
 }
