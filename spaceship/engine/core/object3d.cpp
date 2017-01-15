@@ -2,7 +2,7 @@
 
 namespace Engine {
 	namespace Core {
-		Object3D::Object3D(Geometry geom) : visible(true), geometry(geom)
+		Object3D::Object3D(Mesh geom) : visible(true), geometry(geom)
 		{
 		}
 
@@ -38,7 +38,7 @@ namespace Engine {
 			glTranslatef(pos.getX(), pos.getY(), pos.getZ());
 
 			glBegin(GL_LINE_STRIP);
-			for (std::list<Types::Point3D>::iterator it = this->geometry.vertices.begin(); it != this->geometry.vertices.end(); ++it) {
+			for (std::vector<Types::Point3D>::iterator it = this->geometry.vertices.begin(); it != this->geometry.vertices.end(); ++it) {
 				glVertex3f((*it).getX(), (*it).getY(), (*it).getZ());
 			}
 			glEnd();

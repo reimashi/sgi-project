@@ -22,7 +22,6 @@
     <ClCompile Include="engine\types\dimension2d.cpp" />
     <ClCompile Include="engine\types\dimension3d.cpp" />
     <ClCompile Include="engine\core\scene.cpp" />
-    <ClCompile Include="engine\core\geometry.cpp" />
     <ClCompile Include="engine\core\object3d.cpp" />
     <ClCompile Include="opengl\glig.cpp">
       <Filter>OpenGL</Filter>
@@ -32,6 +31,9 @@
     <ClCompile Include="engine\io\controller.cpp" />
     <ClCompile Include="game_scene.cpp" />
     <ClCompile Include="mallet_object.cpp" />
+    <ClCompile Include="engine\core\mesh.cpp" />
+    <ClCompile Include="engine\types\face3p.cpp" />
+    <ClCompile Include="engine\types\vector3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="opengl\glig.h">
@@ -45,7 +47,6 @@
     <ClInclude Include="engine\types\dimension3d.h" />
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\core\scene.h" />
-    <ClInclude Include="engine\core\geometry.h" />
     <ClInclude Include="engine\core\object3d.h" />
     <ClInclude Include="engine\core\scene_object.h" />
     <ClInclude Include="engine\utils\Singleton.h" />
@@ -53,6 +54,9 @@
     <ClInclude Include="engine\io\controller.h" />
     <ClInclude Include="game_scene.h" />
     <ClInclude Include="mallet_object.h" />
+    <ClInclude Include="engine\core\mesh.h" />
+    <ClInclude Include="engine\types\face3p.h" />
+    <ClInclude Include="engine\types\vector3d.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

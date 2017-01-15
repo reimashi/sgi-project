@@ -1,6 +1,6 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
 #include "../types/point3d.h"
 #include "../../opengl/glig.h"
@@ -10,7 +10,7 @@ namespace Engine {
 		/// <summary>
 		/// Representación geometrica de un objeto
 		/// </summary>
-		class Geometry
+		class Mesh
 		{
 			friend class Object3D;
 
@@ -18,18 +18,18 @@ namespace Engine {
 			static uint64_t idIndex;
 
 			uint64_t id;
-			std::list <Types::Point3D> vertices;
+			std::vector <Types::Point3D> vertices;
 			//std::list <std::list <Types::Point3D*>> *faces;
 
 		public:
-			Geometry();
-			~Geometry();
+			Mesh();
+			~Mesh();
 
 			uint64_t getId() const;
 
 			void addVertex(Types::Point3D vertex);
 
-			static Geometry getCube(float_t size);
+			static Mesh getCube(float_t size);
 		};
 
 	}

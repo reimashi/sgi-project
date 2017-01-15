@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdio.h>
 #include "glig.h"
+#include "../engine/core/mesh.h"
 
 #define PI 3.1415926535897932
 #define ALFA (0.5-v)*PI
@@ -45,7 +46,6 @@ float xSuperQuadric (float u, float v, float R, float s1, float s2)
 		powcosbeta = (float) - pow(- cosbeta,s2);
 
 	return (R*powcosalfa*powcosbeta);
-
 }
 
 
@@ -107,7 +107,57 @@ float zSuperQuadric(float u, float v, float R, float s1, float s2)
 // Crea la esfera haciendo lonchas
 void igCreateQuadricObject(int pu, int pv, float uMax, float vMax, float R, float s1, float s2)
 {
+	float u, v, inc_u, inc_v;
+	float x, y, z;
+	int i, j;
 
+	v = 0.0f;
+	u = 0.0f;
+
+	inc_u = uMax / pu;
+	inc_v = vMax / pv;
+
+	for (j = 0; j < pv; j++) {
+		glBegin(GL_LINE_LOOP);
+
+		u = 0.0f;
+
+		for (i = 0; i <= pu; i++)
+		{
+			x = xSuperQuadric(u, v, R, s1, s2);
+			y = ySuperQuadric(u, v, R, s1, s2);
+			z = zSuperQuadric(u, v, R, s1, s2);
+
+			glVertex3f(x, y, z);
+			u = u + inc_u;
+		}
+
+		glEnd();
+		v = v + inc_v;
+	}
+
+	v = 0.0f;
+	u = 0.0f;
+
+	for (i = 0; i < pu; i++) {
+		glBegin(GL_LINE_STRIP);
+		v = 0.0f;
+		for (j = 0; j <= pv; j++) {
+			x = xSuperQuadric(u, v, R, s1, s2);
+			y = ySuperQuadric(u, v, R, s1, s2);
+			z = zSuperQuadric(u, v, R, s1, s2);
+
+			glVertex3f(x, y, z);
+			v = v + inc_v;
+		}
+		u = u + inc_u;
+		glEnd();
+	}
+}
+
+// Crea la esfera haciendo lonchas
+void geoQuadricObject(int pu, int pv, float uMax, float vMax, float R, float s1, float s2)
+{
 	float u, v, inc_u, inc_v;
 	float x, y, z;
 	int i, j;
@@ -174,49 +224,76 @@ void igWireSemiSphere(int pu, int pv) {
 
 void igWireCubo(void) { igWireCuboSize(1.0); }
 
-std::list<Engine::Types::Point3D> vertexCuboSize(float size) {
-	std::list<Engine::Types::Point3D> vertexList;
+Engine::Core::Mesh geoCuboSize(float size) {
+	Engine::Core::Mesh geo;
 
 	float l = size / 2;
 
 	//aristas traseras
-	vertexList.push_back(Engine::Types::Point3D(-l, -l, -l));
-	vertexList.push_back(Engine::Types::Point3D(l, -l, -l));
-	vertexList.push_back(Engine::Types::Point3D(l, l, -l));
-	vertexList.push_back(Engine::Types::Point3D(-l, l, -l));
-	vertexList.push_back(Engine::Types::Point3D(-l, -l, -l));
+	geo.addVertex(Engine::Types::Point3D(-l, -l, -l));
+	geo.addVertex(Engine::Types::Point3D(l, -l, -l));
+	geo.addVertex(Engine::Types::Point3D(l, l, -l));
+	geo.addVertex(Engine::Types::Point3D(-l, l, -l));
+	geo.addVertex(Engine::Types::Point3D(-l, -l, -l));
 
 	//parte delantera
-	vertexList.push_back(Engine::Types::Point3D(-l, -l, l));
-	vertexList.push_back(Engine::Types::Point3D(-l, l, l));
-	vertexList.push_back(Engine::Types::Point3D(l, l, l));
-	vertexList.push_back(Engine::Types::Point3D(l, -l, l));
-	vertexList.push_back(Engine::Types::Point3D(-l, -l, l));
+	geo.addVertex(Engine::Types::Point3D(-l, -l, l));
+	geo.addVertex(Engine::Types::Point3D(-l, l, l));
+	geo.addVertex(Engine::Types::Point3D(l, l, l));
+	geo.addVertex(Engine::Types::Point3D(l, -l, l));
+	geo.addVertex(Engine::Types::Point3D(-l, -l, l));
 
 	//lado izquierdo
-	vertexList.push_back(Engine::Types::Point3D(-l, -l, -l));
-	vertexList.push_back(Engine::Types::Point3D(-l, -l, l));
-	vertexList.push_back(Engine::Types::Point3D(-l, l, l));
-	vertexList.push_back(Engine::Types::Point3D(-l, l, -l));
-	vertexList.push_back(Engine::Types::Point3D(l, l, -l));
-	vertexList.push_back(Engine::Types::Point3D(l, l, l));
-	vertexList.push_back(Engine::Types::Point3D(l, -l, l));
-	vertexList.push_back(Engine::Types::Point3D(l, -l, -l));
+	geo.addVertex(Engine::Types::Point3D(-l, -l, -l));
+	geo.addVertex(Engine::Types::Point3D(-l, -l, l));
+	geo.addVertex(Engine::Types::Point3D(-l, l, l));
+	geo.addVertex(Engine::Types::Point3D(-l, l, -l));
+	geo.addVertex(Engine::Types::Point3D(l, l, -l));
+	geo.addVertex(Engine::Types::Point3D(l, l, l));
+	geo.addVertex(Engine::Types::Point3D(l, -l, l));
+	geo.addVertex(Engine::Types::Point3D(l, -l, -l));
 
-	return vertexList;
+	return geo;
 }
 
 void igWireCuboSize(float size) {
 	glBegin(GL_LINE_LOOP);
 
-	std::list<Engine::Types::Point3D> vertexList = vertexCuboSize(size);
+	float l = size / 2;
 
-	for (std::list<Engine::Types::Point3D>::iterator it = vertexList.begin(); it != vertexList.end(); it++)
-		glVertex3d(it->getX(), it->getY(), it->getZ());
+	//aristas traseras
+	glVertex3f(-l, -l, -l);
+	glVertex3f(l, -l, -l);
+	glVertex3f(l, l, -l);
+	glVertex3f(-l, l, -l);
+	glVertex3f(-l, -l, -l);
+
+	//parte delantera
+	glVertex3f(-l, -l, l);
+	glVertex3f(-l, l, l);
+	glVertex3f(l, l, l);
+	glVertex3f(l, -l, l);
+	glVertex3f(-l, -l, l);
+
+	//lado izquierdo
+	glVertex3f(-l, -l, -l);
+	glVertex3f(-l, -l, l);
+	glVertex3f(-l, l, l);
+	glVertex3f(-l, l, -l);
+	glVertex3f(l, l, -l);
+	glVertex3f(l, l, l);
+	glVertex3f(l, -l, l);
+	glVertex3f(l, -l, -l);
 
 	glEnd();
 }
 
 void igWireCone(int pu, int pv) {
 	igCreateQuadricObject(pu, pv, 1.0, 0.5, 1, 2, 1);
+}
+
+Engine::Core::Mesh geoCone(int pu, int pv) {
+	Engine::Core::Mesh geo;
+
+	return geo;
 }

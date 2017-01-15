@@ -3,7 +3,7 @@
 #include <list>
 #include <gl/glut.h>
 
-#include "./geometry.h"
+#include "./mesh.h"
 #include "./scene_object.h"
 #include "../types/point3d.h"
 
@@ -15,7 +15,7 @@ namespace Engine {
 		class Object3D : public SceneObject
 		{
 		public:
-			Object3D(Geometry geom);
+			Object3D(Mesh geom);
 			~Object3D();
 
 			void draw();
@@ -24,7 +24,7 @@ namespace Engine {
 			bool isVisible();
 
 		private:
-			Geometry geometry;
+			Mesh geometry;
 
 			GLuint glListPtr = 0;
 			bool glCompiled = false;
