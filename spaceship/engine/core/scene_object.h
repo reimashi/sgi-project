@@ -2,49 +2,91 @@
 
 #include <list>
 #include "../types/point3d.h"
+#include "../utils/logger.h"
 
 namespace Engine {
 	namespace Core {
-		/// <summary>
-		/// Representa cualquier elemento u objeto contenido en la escena.
-		/// </summary>
+		/**
+		 * \brief Representa cualquier elemento u objeto contenido en la escena.
+		 */
 		class SceneObject {
+			friend class Engine;
+
 		protected:
+			static Utils::Logger* logger;
+
+			/**
+			 * \brief Objetos hijos
+			 */
 			std::list<SceneObject*> childs;
+
+			/**
+			 * \brief Puntero al objeto padre, si existe
+			 */
 			SceneObject* parent = NULL;
 
+			/**
+			 * \brief Rotación del objeto con respecto a su padre
+			 */
 			Types::Point3D rotation;
+
+			/**
+			 * \brief Posición del objeto con respecto a su padre
+			 */
 			Types::Point3D position;
 
-			/// <summary>
-			/// Establece el objeto padre de este objeto.
-			/// </summary>
-			/// <param name="child">Instancia del objeto hijo.</param>
+			/**
+			 * \brief Establece el objeto padre de este objeto.
+			 * \param parent Instancia del objeto hijo.
+			 */
 			void setParent(SceneObject* parent);
+
+			/**
+			 * \brief Invoca internamente el dibujado del objeto.
+			 */
+			void internalDraw();
+
+			/**
+			 * \brief Metodo especifico a sobreescribir para el dibujado de un objeto.
+			 */
+			virtual void draw();
 
 		public:
 			SceneObject();
 			~SceneObject();
 
+			/**
+			 * \brief Rota el objeto
+			 * \param x Grados en el eje x a rotar
+			 * \param y Grados en el eje y a rotar
+			 * \param z Grados en el eje z a rotar
+			 */
 			void rotate(float_t x, float_t y, float_t z);
+
+			/**
+			 * \brief Traslada un objeto con respecto a su padre
+			 * \param x Grados en el eje x a ser trasladado
+			 * \param y Grados en el eje y a ser trasladado
+			 * \param z Grados en el eje z a ser trasladado
+			 */
 			void translate(float_t x, float_t y, float_t z);
 
-			/// <summary>
-			/// Añade un objeto hijo al objeto.
-			/// </summary>
-			/// <param name="child">Instancia del objeto hijo.</param>
+			/**
+			 * \brief Añade un objeto hijo al objeto.
+			 * \param child Instancia del objeto hijo.
+			 */
 			void addChild(SceneObject* child);
 
-			/// <summary>
-			/// Elimina un objeto de la lista de objetos hijo.
-			/// </summary>
-			/// <param name="child">Instancia del objeto hijo.</param>
+			/**
+			 * \brief Elimina un objeto de la lista de objetos hijo.
+			 * \param child Instancia del objeto hijo a eliminar.
+			 */
 			void removeChild(SceneObject* child);
 
-			/// <summary>
-			/// Obtiene el objeto padre de este objeto.
-			/// </summary>
-			/// <returns>Objeto padre o NULL si no tiene padre.</returns>
+			/**
+			 * \brief Obtiene el objeto padre de este objeto.
+			 * \return Objeto padre o NULL si no tiene padre.
+			 */
 			SceneObject* getParent() const;
 		};
 	}

@@ -4,10 +4,11 @@
 
 using namespace Engine;
 
-class ShipObject : public Core::Object3D
+
+class MalletObject : public Core::Object3D
 {
 public:
-	ShipObject();
-	~ShipObject();
+	MalletObject();
+	~MalletObject();
 };
 

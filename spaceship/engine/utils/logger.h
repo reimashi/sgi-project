@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ENGINE_UTILS_LOGGER_H
+#define ENGINE_UTILS_LOGGER_H
+
 #include <map>
 #include <string>
 #include <ctime>
@@ -50,3 +53,5 @@ namespace Engine {
 		};
 	}
 }
+
+#endif ENGINE_UTILS_LOGGER_H

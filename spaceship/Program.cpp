@@ -1,6 +1,6 @@
 #include "Program.h"
 #include "engine/engine.h"
-#include "SpaceshipScene.h"
+#include "game_scene.h"
 
 using namespace Engine;
 
@@ -18,7 +18,7 @@ int Program::Main(int argc, char *argv[]) {
 
 	Core::Engine *engine = &Core::Engine::getInstance();
 
-	SpaceshipScene *scene = new SpaceshipScene();
+	GameScene *scene = new GameScene();
 
 	engine->resize(new Types::Dimension2D(800, 600));
 	engine->setTitle("Air hockey");

@@ -27,10 +27,24 @@ namespace Engine {
 		}
 
 		void Engine::loop() {
-			//glClear(GL_COLOR_BUFFER_BIT);
-
+			// Dibujo del frame
 			if (this->scenePtr != NULL) {
+				// Iniciamos la escena si aún no lo está
+				if (!this->scenePtr->inited) {
+					this->scenePtr->init();
+					this->scenePtr->inited = true;
+					logger->debug(__FUNCTION__, "Se ha inicializado la escena");
+				}
+
+				// Ejecutamos la logica del juego
 				this->scenePtr->loop();
+
+				// Dibujamos la escena
+				glClear(GL_COLOR_BUFFER_BIT);
+
+				for (std::list<SceneObject*>::iterator it = this->scenePtr->objects.begin(); it != this->scenePtr->objects.end(); ++it) {
+					(*it)->internalDraw();
+				}
 			}
 			else {
 				logger->error(__FUNCTION__, "No se ha definido una escena. Se ignora el loop");
@@ -40,6 +54,17 @@ namespace Engine {
 
 			// Preparamos el controlador para el proximo frame
 			this->controller->startUpdate();
+
+			// Control de FPS. Paramos el hilo de la logica hasta pasado el tiempo correspondiente.
+			long double currTime = time(0);
+			if (this->initTime == 0) this->initTime = currTime;
+			else if (currTime < (this->initTime + (1000 / this->maxFps))) {
+				Sleep((this->initTime + (1000 / this->maxFps)) - currTime);
+			}
+			this->initTime = time(0);
+
+			// Pedimos a OpenGL que redibuje
+			glutPostRedisplay();
 		}
 
 		// Public methods
@@ -110,7 +135,7 @@ namespace Engine {
 		void Engine::mouseCallback(int button, int state, int x, int y) {
 			Core::Engine *engine = &Core::Engine::getInstance();
 
-			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF200 & button));
+			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF200 + button));
 			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
 		}
 
@@ -141,7 +166,7 @@ namespace Engine {
 		void Engine::keyboardSpecialCallback(int key, int x, int y) {
 			Core::Engine *engine = &Core::Engine::getInstance();
 
-			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF000 & key));
+			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF000 + key));
 			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
 		}
 

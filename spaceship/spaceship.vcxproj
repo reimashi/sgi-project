@@ -161,8 +161,8 @@
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="engine\core\object3d.cpp" />
     <ClCompile Include="engine\core\scene_object.cpp" />
-    <ClCompile Include="ship_object.cpp" />
-    <ClCompile Include="SpaceshipScene.cpp" />
+    <ClCompile Include="mallet_object.cpp" />
+    <ClCompile Include="game_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\io\controller.h" />
@@ -180,8 +180,8 @@
     <ClInclude Include="engine\core\scene.h" />
     <ClInclude Include="engine\core\object3d.h" />
     <ClInclude Include="engine\core\scene_object.h" />
-    <ClInclude Include="ship_object.h" />
-    <ClInclude Include="SpaceshipScene.h" />
+    <ClInclude Include="mallet_object.h" />
+    <ClInclude Include="game_scene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

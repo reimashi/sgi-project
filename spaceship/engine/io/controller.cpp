@@ -1,4 +1,5 @@
 #include "controller.h"
+#include <iostream>
 
 namespace Engine {
 	namespace IO {
@@ -20,18 +21,13 @@ namespace Engine {
 
 		void Controller::updateKeyPress(ControlKey key) {
 			if (!this->isKeyPressed(key)) {
-				this->pressedKeys.emplace_back(key);
+				this->pressedKeys.emplace_back(static_cast<int>(key));
 			}
 		}
 
 		bool Controller::isKeyPressed(ControlKey key) const {
-			return (std::find(this->pressedKeys.begin(), this->pressedKeys.end(), key) != this->pressedKeys.end());
-		}
-
-		std::list<ControlKey> Controller::getPressedKeys() {
-			std::list<IO::ControlKey> keys;
-			std::copy(this->pressedKeys.begin(), this->pressedKeys.end(), std::back_inserter(keys));
-			return keys;
+			int keycode = static_cast<int>(key);
+			return (std::find(this->pressedKeys.begin(), this->pressedKeys.end(), static_cast<int>(key)) != this->pressedKeys.end());
 		}
 
 		Types::Point2D Controller::getMousePosition() const {

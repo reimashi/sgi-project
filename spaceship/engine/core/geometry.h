@@ -12,11 +12,13 @@ namespace Engine {
 		/// </summary>
 		class Geometry
 		{
-		private:
+			friend class Object3D;
+
+		protected:
 			static uint64_t idIndex;
 
 			uint64_t id;
-			std::list <Types::Point3D> *vertices;
+			std::list <Types::Point3D> vertices;
 			//std::list <std::list <Types::Point3D*>> *faces;
 
 		public:

@@ -16,6 +16,7 @@
 
 namespace Engine {
 	namespace Core {
+		static const unsigned short DEFAULT_MAX_FPS = 60;
 		static const char DEFAULT_WINDOW_TITLE[] = "Engine";
 
 		class Engine : public Utils::Singleton<Engine>
@@ -29,7 +30,9 @@ namespace Engine {
 			IO::Controller *controller = NULL;
 			Core::Scene *scenePtr = NULL;
 			Types::Dimension2D *windowSize = NULL;
+			long double initTime = 0;
 
+			unsigned short maxFps = DEFAULT_MAX_FPS;
 			std::string windowTitle;
 
 			Engine();

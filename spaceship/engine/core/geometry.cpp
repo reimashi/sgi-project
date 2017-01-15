@@ -7,7 +7,6 @@ namespace Engine {
 		Geometry::Geometry()
 		{
 			this->id = idIndex++;
-			this->vertices = new std::list<Types::Point3D>();
 		}
 
 
@@ -20,12 +19,12 @@ namespace Engine {
 		}
 
 		void Geometry::addVertex(Types::Point3D point) {
-			this->vertices->push_back(point);
+			this->vertices.push_back(point);
 		}
 
 		Geometry Geometry::getCube(float_t size) {
 			Geometry cube;
-			cube.vertices = &vertexCuboSize(size); // FIXME: Comprobar bien
+			cube.vertices = vertexCuboSize(size); // FIXME: Comprobar bien
 			return cube;
 		}
 	}

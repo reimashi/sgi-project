@@ -15,7 +15,7 @@ namespace Engine {
 		class Object3D : public SceneObject
 		{
 		public:
-			Object3D();
+			Object3D(Geometry geom);
 			~Object3D();
 
 			void draw();

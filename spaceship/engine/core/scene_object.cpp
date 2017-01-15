@@ -2,6 +2,8 @@
 
 namespace Engine {
 	namespace Core {
+		Utils::Logger* SceneObject::logger = Utils::Logger::getLogger("Engine::Core::SceneObject");
+
 		SceneObject::SceneObject() : position(0, 0, 0), rotation(0, 0, 0)
 		{
 		}
@@ -9,6 +11,18 @@ namespace Engine {
 
 		SceneObject::~SceneObject()
 		{
+		}
+
+		void SceneObject::internalDraw() {
+			this->draw();
+
+			for (std::list<SceneObject*>::iterator it = this->childs.begin(); it != this->childs.end(); ++it) {
+				(*it)->internalDraw();
+			}
+		}
+
+		void SceneObject::draw() {
+			logger->error(__FUNCTION__, "Todas las clases heredadas de SceneObject deben sobreescribir el metodo draw().");
 		}
 
 		void SceneObject::setParent(SceneObject* parentPtr) {
@@ -20,9 +34,9 @@ namespace Engine {
 			float_t iy = this->rotation.getY() + y;
 			float_t iz = this->rotation.getZ() + z;
 
-			if (ix > 360) ix -= 360;
-			if (iy > 360) iy -= 360;
-			if (iz > 360) iz -= 360;
+			if (ix > 360) ix -= 360; else if (ix < 0) ix += 360;
+			if (iy > 360) iy -= 360; else if (iy < 0) ix += 360;
+			if (iz > 360) iz -= 360; else if (iz < 0) ix += 360;
 
 			this->rotation.setX(ix);
 			this->rotation.setY(iy);

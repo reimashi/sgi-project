@@ -21,9 +21,7 @@
     <ClCompile Include="engine\types\point3d.cpp" />
     <ClCompile Include="engine\types\dimension2d.cpp" />
     <ClCompile Include="engine\types\dimension3d.cpp" />
-    <ClCompile Include="SpaceshipScene.cpp" />
     <ClCompile Include="engine\core\scene.cpp" />
-    <ClCompile Include="ship_object.cpp" />
     <ClCompile Include="engine\core\geometry.cpp" />
     <ClCompile Include="engine\core\object3d.cpp" />
     <ClCompile Include="opengl\glig.cpp">
@@ -32,6 +30,8 @@
     <ClCompile Include="engine\core\scene_object.cpp" />
     <ClCompile Include="engine\utils\logger.cpp" />
     <ClCompile Include="engine\io\controller.cpp" />
+    <ClCompile Include="game_scene.cpp" />
+    <ClCompile Include="mallet_object.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="opengl\glig.h">
@@ -45,14 +45,14 @@
     <ClInclude Include="engine\types\dimension3d.h" />
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\core\scene.h" />
-    <ClInclude Include="SpaceshipScene.h" />
-    <ClInclude Include="ship_object.h" />
     <ClInclude Include="engine\core\geometry.h" />
     <ClInclude Include="engine\core\object3d.h" />
     <ClInclude Include="engine\core\scene_object.h" />
     <ClInclude Include="engine\utils\Singleton.h" />
     <ClInclude Include="engine\utils\logger.h" />
     <ClInclude Include="engine\io\controller.h" />
+    <ClInclude Include="game_scene.h" />
+    <ClInclude Include="mallet_object.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
