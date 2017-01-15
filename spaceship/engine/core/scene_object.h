@@ -51,25 +51,37 @@ namespace Engine {
 			 */
 			virtual void draw();
 
+			Types::Point3D getNormalizedPosition() const;
+			Types::Point3D getNormalizedRotation() const;
+			Types::Point3D SceneObject::getHeadParentPosition() const;
+
 		public:
 			SceneObject();
 			~SceneObject();
 
 			/**
-			 * \brief Rota el objeto
-			 * \param x Grados en el eje x a rotar
-			 * \param y Grados en el eje y a rotar
-			 * \param z Grados en el eje z a rotar
-			 */
+			* \brief Rota el objeto
+			* \param x Grados en el eje x a rotar
+			* \param y Grados en el eje y a rotar
+			* \param z Grados en el eje z a rotar
+			*/
 			void rotate(float_t x, float_t y, float_t z);
 
 			/**
-			 * \brief Traslada un objeto con respecto a su padre
-			 * \param x Grados en el eje x a ser trasladado
-			 * \param y Grados en el eje y a ser trasladado
-			 * \param z Grados en el eje z a ser trasladado
-			 */
+			* \brief Traslada un objeto con respecto a su padre
+			* \param x Unidades en el eje x a ser trasladado
+			* \param y Unidades en el eje y a ser trasladado
+			* \param z Unidades en el eje z a ser trasladado
+			*/
 			void translate(float_t x, float_t y, float_t z);
+
+			/**
+			* \brief Mueve el objeto a una posición
+			* \param x Coordenadas en el eje x
+			* \param y Coordenadas en el eje y
+			* \param z Coordenadas en el eje z
+			*/
+			void setPosition(Types::Point3D pos);
 
 			/**
 			 * \brief Añade un objeto hijo al objeto.

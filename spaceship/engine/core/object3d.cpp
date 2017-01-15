@@ -21,11 +21,21 @@ namespace Engine {
 		void Object3D::draw() {
 
 			glPushMatrix();
+			
+			Types::Point3D rot = this->getNormalizedRotation();
+			Types::Point3D pos = this->getNormalizedPosition();
+			Types::Point3D parentPos = this->getHeadParentPosition();
 
-			std::cout << "Rotando " << this->rotation.getX() << " - " << this->rotation.getY() << " - " << this->rotation.getZ() << std::endl;
-			if (this->rotation.getX() != 0.0) glRotated(this->rotation.getX(), 1, 0, 0);
-			if (this->rotation.getY() != 0.0) glRotated(this->rotation.getY(), 0, 1, 0);
-			if (this->rotation.getZ() != 0.0) glRotated(this->rotation.getZ(), 0, 0, 1);
+			std::cout << "Trasladando " << parentPos.getX() << " - " << parentPos.getY() << " - " << parentPos.getZ() << std::endl;
+			glTranslatef(parentPos.getX(), parentPos.getY(), parentPos.getZ());
+
+			std::cout << "Rotando " << rot.getX() << " - " << rot.getY() << " - " << rot.getZ() << std::endl;
+			if (rot.getX() != 0.0) glRotatef(rot.getX(), 1, 0, 0);
+			if (rot.getY() != 0.0) glRotatef(rot.getY(), 0, 1, 0);
+			if (rot.getZ() != 0.0) glRotatef(rot.getZ(), 0, 0, 1);
+
+			std::cout << "Trasladando con " << this->position.getX() << " - " << this->position.getY() << " - " << this->position.getZ() << std::endl;
+			glTranslatef(pos.getX(), pos.getY(), pos.getZ());
 
 			glBegin(GL_LINE_STRIP);
 			for (std::list<Types::Point3D>::iterator it = this->geometry.vertices.begin(); it != this->geometry.vertices.end(); ++it) {
