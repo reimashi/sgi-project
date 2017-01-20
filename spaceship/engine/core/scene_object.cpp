@@ -4,7 +4,7 @@ namespace Engine {
 	namespace Core {
 		Utils::Logger* SceneObject::logger = Utils::Logger::getLogger("Engine::Core::SceneObject");
 
-		SceneObject::SceneObject() : position(0, 0, 0), rotation(0, 0, 0)
+		SceneObject::SceneObject() : visible(true), position(0, 0, 0), rotation(0, 0, 0)
 		{
 		}
 
@@ -14,10 +14,12 @@ namespace Engine {
 		}
 
 		void SceneObject::internalDraw() {
-			this->draw();
+			if (this->isVisible()) {
+				this->draw();
 
-			for (std::list<SceneObject*>::iterator it = this->childs.begin(); it != this->childs.end(); ++it) {
-				(*it)->internalDraw();
+				for (std::list<SceneObject*>::iterator it = this->childs.begin(); it != this->childs.end(); ++it) {
+					(*it)->internalDraw();
+				}
 			}
 		}
 
@@ -112,6 +114,14 @@ namespace Engine {
 		{
 			if (this->parent == nullptr) return *(this->position.clone());
 			else return this->parent->getHeadParentPosition();
+		}
+
+		void SceneObject::setVisibility(bool show) {
+			this->visible = show;
+		}
+
+		bool SceneObject::isVisible() {
+			return this->visible;
 		}
 	}
 }

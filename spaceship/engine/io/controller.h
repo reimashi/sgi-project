@@ -5,6 +5,7 @@
 
 #include <list>
 #include <iterator>
+#include <stdlib.h>
 #include <gl/glut.h>
 #include "../types/point2d.h"
 #include "../utils/singleton.h"

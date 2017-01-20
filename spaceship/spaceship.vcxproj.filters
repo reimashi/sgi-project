@@ -34,6 +34,11 @@
     <ClCompile Include="engine\core\mesh.cpp" />
     <ClCompile Include="engine\types\face3p.cpp" />
     <ClCompile Include="engine\types\vector3d.cpp" />
+    <ClCompile Include="puck_object.cpp" />
+    <ClCompile Include="table_object.cpp" />
+    <ClCompile Include="engine\core\camera.cpp" />
+    <ClCompile Include="engine\core\material.cpp" />
+    <ClCompile Include="engine\materials\color_material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="opengl\glig.h">
@@ -57,6 +62,11 @@
     <ClInclude Include="engine\core\mesh.h" />
     <ClInclude Include="engine\types\face3p.h" />
     <ClInclude Include="engine\types\vector3d.h" />
+    <ClInclude Include="puck_object.h" />
+    <ClInclude Include="table_object.h" />
+    <ClInclude Include="engine\core\camera.h" />
+    <ClInclude Include="engine\core\material.h" />
+    <ClInclude Include="engine\materials\color_material.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,4 +1,5 @@
 #include "engine.h"
+#include <windows.h>
 
 namespace Engine {
 	namespace Core {
@@ -15,8 +16,8 @@ namespace Engine {
 			myargv[0] = _strdup(DEFAULT_WINDOW_TITLE);
 
 			glutInit(&myargc, myargv);
-			glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-			glutInitWindowSize((int)windowSize->getWidth(), (int)windowSize->getHeight());
+			glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_ALPHA);
+			glutInitWindowSize(static_cast<int>(windowSize->getWidth()), static_cast<int>(windowSize->getHeight()));
 			glutInitWindowPosition(0, 0);
 			this->windowTitle = DEFAULT_WINDOW_TITLE;
 			this->windowPtr = glutCreateWindow(DEFAULT_WINDOW_TITLE);
@@ -51,23 +52,23 @@ namespace Engine {
 			}
 
 			glFlush();
+			glutSwapBuffers();
 
 			// Preparamos el controlador para el proximo frame
 			this->controller->startUpdate();
 
 			// Control de FPS. Paramos el hilo de la logica hasta pasado el tiempo correspondiente.
-			long double currTime = time(0);
+			long double currTime = static_cast<long double>(time(0));
 			if (this->initTime == 0) this->initTime = currTime;
 			else if (currTime < (this->initTime + (1000 / this->maxFps))) {
-				Sleep((this->initTime + (1000 / this->maxFps)) - currTime);
+				Sleep(static_cast<DWORD>((this->initTime + (1000 / this->maxFps)) - currTime));
 			}
-			this->initTime = time(0);
+			this->initTime = static_cast<long double>(time(0));
 
 			// Pedimos a OpenGL que redibuje
+			// NOTA: Comentar esta linea evita el dibujado continuo de la escena. Para las animaciones pero permite hacer debug frame a frame.
 			glutPostRedisplay();
 		}
-
-		// Public methods
 
 		void Engine::run(Core::Scene *scene) {
 			this->scenePtr = scene;
@@ -118,7 +119,7 @@ namespace Engine {
 			Core::Engine *engine = &Core::Engine::getInstance();
 			Types::Dimension2D* windowSize = engine->getSize();
 
-			if ((int)windowSize->getWidth() != (int)width || (int)windowSize->getHeight() != (int)height) {
+			if (static_cast<int>(windowSize->getWidth()) != static_cast<int>(width) || static_cast<int>(windowSize->getHeight()) != static_cast<int>(height)) {
 				engine->resize(windowSize);
 			}
 			else {
@@ -126,9 +127,6 @@ namespace Engine {
 
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
-
-				glOrtho(-2.0, 2.0, -2.0*(GLfloat)height / (GLfloat)width, 2.0*(GLdouble)height / (GLfloat)width, -2.0, 2.0);
-				//gluPerspective(60.0, (GLdouble)width / (GLdouble)height, 1.0, 150.0);
 			}
 		}
 

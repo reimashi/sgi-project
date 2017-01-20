@@ -7,6 +7,7 @@
 /*************************************************************************/
 
 /***************** INCLUDES DE LAS LIBRERIAS NECESARIAS ******************/
+#include <stdlib.h>
 #include <gl/glut.h>
 #include <math.h>
 #include <stdio.h>
@@ -223,38 +224,6 @@ void igWireSemiSphere(int pu, int pv) {
 }
 
 void igWireCubo(void) { igWireCuboSize(1.0); }
-
-Engine::Core::Mesh geoCuboSize(float size) {
-	Engine::Core::Mesh geo;
-
-	float l = size / 2;
-
-	//aristas traseras
-	geo.addVertex(Engine::Types::Point3D(-l, -l, -l));
-	geo.addVertex(Engine::Types::Point3D(l, -l, -l));
-	geo.addVertex(Engine::Types::Point3D(l, l, -l));
-	geo.addVertex(Engine::Types::Point3D(-l, l, -l));
-	geo.addVertex(Engine::Types::Point3D(-l, -l, -l));
-
-	//parte delantera
-	geo.addVertex(Engine::Types::Point3D(-l, -l, l));
-	geo.addVertex(Engine::Types::Point3D(-l, l, l));
-	geo.addVertex(Engine::Types::Point3D(l, l, l));
-	geo.addVertex(Engine::Types::Point3D(l, -l, l));
-	geo.addVertex(Engine::Types::Point3D(-l, -l, l));
-
-	//lado izquierdo
-	geo.addVertex(Engine::Types::Point3D(-l, -l, -l));
-	geo.addVertex(Engine::Types::Point3D(-l, -l, l));
-	geo.addVertex(Engine::Types::Point3D(-l, l, l));
-	geo.addVertex(Engine::Types::Point3D(-l, l, -l));
-	geo.addVertex(Engine::Types::Point3D(l, l, -l));
-	geo.addVertex(Engine::Types::Point3D(l, l, l));
-	geo.addVertex(Engine::Types::Point3D(l, -l, l));
-	geo.addVertex(Engine::Types::Point3D(l, -l, -l));
-
-	return geo;
-}
 
 void igWireCuboSize(float size) {
 	glBegin(GL_LINE_LOOP);

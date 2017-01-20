@@ -2,12 +2,16 @@
 
 #include "engine\engine.h"
 #include "mallet_object.h"
+#include "table_object.h"
+#include "puck_object.h"
 
 using namespace Engine;
 
 class GameScene : public Core::Scene
 {
 private:
+	TableObject* table;
+	PuckObject* puck;
 	MalletObject* mallet;
 
 public:

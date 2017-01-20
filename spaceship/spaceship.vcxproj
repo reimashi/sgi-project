@@ -71,7 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\reima\Documents\GitHub\sgi-project\spaceship\packages\freeglut.2.8.1.15\build\native\lib\v110\x64\Debug\dynamic;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\reima\Documents\GitHub\sgi-project\spaceship\packages\glut;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\reima\Documents\GitHub\sgi-project\spaceship\packages\glut;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,6 +149,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="engine\materials\color_material.cpp" />
+    <ClCompile Include="engine\core\camera.cpp" />
     <ClCompile Include="engine\io\controller.cpp" />
     <ClCompile Include="engine\utils\logger.cpp" />
     <ClCompile Include="engine\core\engine.cpp" />
@@ -158,6 +161,7 @@
     <ClCompile Include="engine\types\point3d.cpp" />
     <ClCompile Include="engine\core\mesh.cpp" />
     <ClCompile Include="engine\types\face3p.cpp" />
+    <ClCompile Include="engine\core\material.cpp" />
     <ClCompile Include="opengl\glig.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="engine\core\object3d.cpp" />
@@ -165,8 +169,12 @@
     <ClCompile Include="mallet_object.cpp" />
     <ClCompile Include="game_scene.cpp" />
     <ClCompile Include="engine\types\vector3d.cpp" />
+    <ClCompile Include="puck_object.cpp" />
+    <ClCompile Include="table_object.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="engine\materials\color_material.h" />
+    <ClInclude Include="engine\core\camera.h" />
     <ClInclude Include="engine\io\controller.h" />
     <ClInclude Include="engine\utils\logger.h" />
     <ClInclude Include="engine\core\engine.h" />
@@ -178,6 +186,7 @@
     <ClInclude Include="engine\utils\Singleton.h" />
     <ClInclude Include="engine\core\mesh.h" />
     <ClInclude Include="engine\types\face3p.h" />
+    <ClInclude Include="engine\core\material.h" />
     <ClInclude Include="opengl\glig.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="engine\core\scene.h" />
@@ -186,6 +195,8 @@
     <ClInclude Include="mallet_object.h" />
     <ClInclude Include="game_scene.h" />
     <ClInclude Include="engine\types\vector3d.h" />
+    <ClInclude Include="puck_object.h" />
+    <ClInclude Include="table_object.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -193,13 +204,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets" Condition="Exists('packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets')" />
-    <Import Project="packages\freeglut.2.8.1.15\build\native\freeglut.targets" Condition="Exists('packages\freeglut.2.8.1.15\build\native\freeglut.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets'))" />
-    <Error Condition="!Exists('packages\freeglut.2.8.1.15\build\native\freeglut.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\freeglut.2.8.1.15\build\native\freeglut.targets'))" />
   </Target>
 </Project>

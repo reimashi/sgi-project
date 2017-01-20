@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "../types/point3d.h"
-#include "../../opengl/glig.h"
+#include "../types/face3p.h"
 
 namespace Engine {
 	namespace Core {
@@ -19,7 +19,10 @@ namespace Engine {
 
 			uint64_t id;
 			std::vector <Types::Point3D> vertices;
-			//std::list <std::list <Types::Point3D*>> *faces;
+			std::vector <Types::Face3P> faces;
+
+			void addVertex(Types::Point3D vertex);
+			void addFace(Types::Face3P face);
 
 		public:
 			Mesh();
@@ -27,9 +30,8 @@ namespace Engine {
 
 			uint64_t getId() const;
 
-			void addVertex(Types::Point3D vertex);
-
 			static Mesh getCube(float_t size);
+			static Mesh Mesh::getRectangle(float_t width, float_t height);
 		};
 
 	}

@@ -3,7 +3,7 @@
 
 namespace Engine {
 	namespace Types {
-		Vector3D::Vector3D(Point3D init, Point3D term) : initial(init), terminal(term)
+		Vector3D::Vector3D(Point3D p) : point(p)
 		{
 		}
 
@@ -11,25 +11,46 @@ namespace Engine {
 		{
 		}
 
-		Point3D Vector3D::getInitialPoint() const { return *(this->initial.clone()); }
-		Point3D Vector3D::getTerminalPoint() const { return *(this->terminal.clone()); }
+		Point3D Vector3D::getPoint() const { return *(this->point.clone()); }
+
 		float_t Vector3D::getMagnitude() const
 		{
-			return sqrtf(powf(this->initial.getX(), 2) + powf(this->initial.getY(), 2) + powf(this->initial.getZ(), 2));
+			return sqrtf(powf(this->point.getX(), 2) + powf(this->point.getY(), 2) + powf(this->point.getZ(), 2));
 		}
 
 		Vector3D* Vector3D::clone() const
 		{
-			return new Vector3D(*this->initial.clone(), *this->terminal.clone());
+			return new Vector3D(*(this->point.clone()));
 		}
 
 		bool Vector3D::operator==(const Vector3D& rhs) const {
-			return (this->initial == rhs.getInitialPoint()
-				&& this->terminal == rhs.getTerminalPoint());
+			return (this->point == rhs.getPoint());
 		}
 
 		bool Vector3D::operator!=(const Vector3D& rhs) const {
 			return !operator==(rhs);
 		}
+
+		Vector3D Vector3D::operator-() const {
+			return Vector3D(Point3D(-this->point.getX(), -this->point.getY(), -this->point.getZ()));
+		}
+
+		Vector3D Vector3D::operator-(const Vector3D& rhs) const {
+			return Vector3D(Point3D(this->point.getX() - rhs.getPoint().getX(), this->point.getY() - rhs.getPoint().getY(), this->point.getZ() - rhs.getPoint().getZ()));
+		}
+
+		float_t Vector3D::angle(const Vector3D& rhs) const
+		{
+			Point3D rhsp = rhs.getPoint();
+			float_t ep = this->point.getX() * rhsp.getX() +
+				this->point.getY() * rhsp.getY() +
+				this->point.getY() * rhsp.getY();
+			return acosf(ep/(this->getMagnitude() + rhs.getMagnitude()));
+		}
+
+		Vector3D Vector3D::getNull() { return Vector3D(Point3D(0,0,0)); }
+		Vector3D Vector3D::xAxis() { return Vector3D(Point3D(1, 0, 0)); }
+		Vector3D Vector3D::yAxis() { return Vector3D(Point3D(0, 1, 0)); }
+		Vector3D Vector3D::zAxis() { return Vector3D(Point3D(0, 0, 1)); }
 	}
 }

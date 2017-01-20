@@ -5,6 +5,8 @@ namespace Engine {
 		Scene::Scene()
 		{
 			this->controls = &IO::Controller::getInstance();
+			this->camera = new Camera();
+			this->addObject(this->camera);
 		}
 
 		void Scene::onWindowFocus() {}

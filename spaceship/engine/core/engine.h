@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <cstdbool>
+#include <stdlib.h>
 #include <gl/glut.h>
 
 #include "../io/controller.h"

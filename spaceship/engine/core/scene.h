@@ -3,6 +3,7 @@
 #include <list>
 #include "scene_object.h"
 #include "../io/controller.h"
+#include "camera.h"
 
 namespace Engine {
 	namespace Core {
@@ -23,6 +24,8 @@ namespace Engine {
 			IO::Controller* controls;
 
 			std::list<SceneObject*> objects;
+
+			Camera* camera;
 
 			/// <summary>
 			/// Metodo que es llamado cuando la ventana pasa al primer plano

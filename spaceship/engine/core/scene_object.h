@@ -16,6 +16,11 @@ namespace Engine {
 			static Utils::Logger* logger;
 
 			/**
+			 * \brief El objeto es visible
+			 */
+			bool visible;
+
+			/**
 			 * \brief Objetos hijos
 			 */
 			std::list<SceneObject*> childs;
@@ -57,7 +62,7 @@ namespace Engine {
 
 		public:
 			SceneObject();
-			~SceneObject();
+			virtual ~SceneObject();
 
 			/**
 			* \brief Rota el objeto
@@ -65,7 +70,7 @@ namespace Engine {
 			* \param y Grados en el eje y a rotar
 			* \param z Grados en el eje z a rotar
 			*/
-			void rotate(float_t x, float_t y, float_t z);
+			virtual void rotate(float_t x, float_t y, float_t z);
 
 			/**
 			* \brief Traslada un objeto con respecto a su padre
@@ -73,7 +78,7 @@ namespace Engine {
 			* \param y Unidades en el eje y a ser trasladado
 			* \param z Unidades en el eje z a ser trasladado
 			*/
-			void translate(float_t x, float_t y, float_t z);
+			virtual void translate(float_t x, float_t y, float_t z);
 
 			/**
 			* \brief Mueve el objeto a una posición
@@ -81,7 +86,7 @@ namespace Engine {
 			* \param y Coordenadas en el eje y
 			* \param z Coordenadas en el eje z
 			*/
-			void setPosition(Types::Point3D pos);
+			virtual void setPosition(Types::Point3D pos);
 
 			/**
 			 * \brief Añade un objeto hijo al objeto.
@@ -100,6 +105,18 @@ namespace Engine {
 			 * \return Objeto padre o NULL si no tiene padre.
 			 */
 			SceneObject* getParent() const;
+
+			/**
+			 * \brief Establece la visibilidad de un objeto.
+			 * \param show TRUE para hacerlo visible.
+			 */
+			void setVisibility(bool show);
+
+			/**
+			 * \brief Comprueba si un objeto es visible.
+			 * \return TRUE si es visible.
+			 */
+			bool isVisible();
 		};
 	}
 }

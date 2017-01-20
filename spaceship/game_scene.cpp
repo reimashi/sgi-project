@@ -1,4 +1,5 @@
 #include "game_scene.h"
+#include "engine/core/camera.h"
 
 GameScene::GameScene() : Core::Scene()
 {
@@ -10,31 +11,39 @@ GameScene::~GameScene()
 
 void GameScene::init()
 {
+	this->table = new TableObject();
+	this->addObject(this->table);
+
+	this->puck = new PuckObject();
+	this->addObject(this->puck);
+
 	this->mallet = new MalletObject();
+	MalletObject* two = new MalletObject();
+	two->translate(0.5, 0.5, 0);
+	this->mallet->addChild(two);
+	this->mallet->translate(0.2, 0.2, 0.2);
 	this->addObject(this->mallet);
+
+	this->camera->setPosition(Types::Point3D(0, 1, -3));
 }
 
 void GameScene::loop()
 {
-	std::cout << "Vamos a comprobar" << std::endl;
 	if (this->controls->isKeyPressed(IO::ControlKey::LEFT))
 	{
-		std::cout << "Entra izquierda" << std::endl;
 		this->mallet->rotate(0, -5, 0);
 	}
 	else if (this->controls->isKeyPressed(IO::ControlKey::RIGHT))
 	{
-		std::cout << "Entra derecha" << std::endl;
 		this->mallet->rotate(0, 5, 0);
 	}
 	else if (this->controls->isKeyPressed(IO::ControlKey::UP))
 	{
-		std::cout << "Entra derecha" << std::endl;
 		this->mallet->rotate(5, 0, 0);
 	}
 	else if (this->controls->isKeyPressed(IO::ControlKey::DOWN))
 	{
-		std::cout << "Entra derecha" << std::endl;
-		this->mallet->rotate(5, 0, 0);
+		this->mallet->rotate(-5, 0, 0);
+		this->camera->translate(0, 0, -0.2);
 	}
 }
