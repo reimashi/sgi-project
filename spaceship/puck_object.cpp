@@ -1,7 +1,7 @@
 #include "puck_object.h"
 #include "engine/utils/obj_loader.h"
 
-PuckObject::PuckObject() : TableItem(Utils::OBJLoader::Load(".\\punch_model.obj"))
+PuckObject::PuckObject() : TableItem(Utils::OBJLoader::Load(".\\resources\\models\\puck_model.obj"))
 {
 	this->material = new Materials::ColorMaterial(0.5, 0.2, 0.2);
 	this->scale(0.1);

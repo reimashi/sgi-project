@@ -4,7 +4,7 @@
 TableObject::TableObject() : Object3D(Core::Mesh::getRectangle(1.22, 2.44))
 {
 	//this->material = new Materials::ColorMaterial(0.3, 0.3, 0.3);
-	this->material = new Materials::TGAMaterial(IO::TGAImage::Load(".\\table.tga"));
+	this->material = new Materials::TGAMaterial(IO::TGAImage::Load(".\\resources\\textures\\table.tga"));
 	this->scale(1.5);
 }
 
