@@ -17,7 +17,7 @@ namespace Engine {
 		{
 		}
 
-		// Function extracted from Wikibooks
+		// Funcion extraida de Wikibooks y modificada
 		Core::Mesh OBJLoader::Load(std::string path)
 		{
 			Core::Mesh toret;
@@ -36,7 +36,6 @@ namespace Engine {
 				if (line.substr(0, 2) == "v ")
 				{
 					std::istringstream s(line.substr(2));
-					Types::Point3D v;
 					GLfloat x, y, z;
 					s >> x; s >> y; s >> z;
 					toret.vertices.push_back(Types::Point3D(x, y, z));
@@ -52,19 +51,20 @@ namespace Engine {
 						toret.vertices[a],
 						toret.vertices[b],
 						toret.vertices[c],
-						Types::Vector3D()
+						Types::Vector3D::zAxis()	// TODO: Calcular
 					));
-					elements.push_back(a); elements.push_back(b); elements.push_back(c);
 				}
 				else if (line[0] == '#')
 				{
-					/* ignoring this line */
+					/* Se ignoran los comentarios */
 				}
 				else
 				{
 					/* ignoring this line */
 				}
 			}
+
+			return toret;
 		}
 	}
 }

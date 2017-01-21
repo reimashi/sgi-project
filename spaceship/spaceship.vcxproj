@@ -162,6 +162,7 @@
     <ClCompile Include="engine\core\mesh.cpp" />
     <ClCompile Include="engine\types\face3p.cpp" />
     <ClCompile Include="engine\core\material.cpp" />
+    <ClCompile Include="engine\utils\obj_loader.cpp" />
     <ClCompile Include="opengl\glig.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="engine\core\object3d.cpp" />
@@ -171,6 +172,8 @@
     <ClCompile Include="engine\types\vector3d.cpp" />
     <ClCompile Include="puck_object.cpp" />
     <ClCompile Include="table_object.cpp" />
+    <ClCompile Include="engine\io\tga_image.cpp" />
+    <ClCompile Include="engine\materials\tga_material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="engine\materials\color_material.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="engine\core\mesh.h" />
     <ClInclude Include="engine\types\face3p.h" />
     <ClInclude Include="engine\core\material.h" />
+    <ClInclude Include="engine\utils\obj_loader.h" />
     <ClInclude Include="opengl\glig.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="engine\core\scene.h" />
@@ -197,6 +201,8 @@
     <ClInclude Include="engine\types\vector3d.h" />
     <ClInclude Include="puck_object.h" />
     <ClInclude Include="table_object.h" />
+    <ClInclude Include="engine\io\tga_image.h" />
+    <ClInclude Include="engine\materials\tga_material.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
