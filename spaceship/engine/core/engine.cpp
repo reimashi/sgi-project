@@ -136,7 +136,7 @@ namespace Engine {
 			Core::Engine *engine = &Core::Engine::getInstance();
 
 			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF200 + button));
-			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
+			engine->controller->updateMouseMove(Types::Point2D((float)x, (float)y));
 		}
 
 		void Engine::mouseEntryCallback(int state) {
@@ -151,7 +151,7 @@ namespace Engine {
 		void Engine::mouseMotionCallback(int x, int y) {
 			Core::Engine *engine = &Core::Engine::getInstance();
 
-			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
+			engine->controller->updateMouseMove(Types::Point2D((float)x, (float)y));
 		}
 
 		void Engine::keyboardCallback(unsigned char key, int x, int y) {
@@ -160,14 +160,14 @@ namespace Engine {
 			if (key > 0x40 && key < 0x5B) { key += 0x20; }
 
 			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(key));
-			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
+			engine->controller->updateMouseMove(Types::Point2D((float)x, (float)y));
 		}
 
 		void Engine::keyboardSpecialCallback(int key, int x, int y) {
 			Core::Engine *engine = &Core::Engine::getInstance();
 
 			engine->controller->updateKeyPress(static_cast<IO::ControlKey>(0xF000 + key));
-			engine->controller->updateMouseMove(new Types::Point2D((float)x, (float)y));
+			engine->controller->updateMouseMove(Types::Point2D((float)x, (float)y));
 		}
 
 #pragma endregion

@@ -15,8 +15,8 @@ namespace Engine {
 			if (!this->pressedKeys.empty()) this->pressedKeys.clear();
 		}
 
-		void Controller::updateMouseMove(Types::Point2D* position) {
-			if (*position != this->mousePosition) this->mousePosition = *(position->clone());
+		void Controller::updateMouseMove(Types::Point2D position) {
+			if (position != this->mousePosition) this->mousePosition = position.clone();
 		}
 
 		void Controller::updateKeyPress(ControlKey key) {
@@ -31,7 +31,7 @@ namespace Engine {
 		}
 
 		Types::Point2D Controller::getMousePosition() const {
-			return *this->mousePosition.clone();
+			return this->mousePosition.clone();
 		}
 	}
 }

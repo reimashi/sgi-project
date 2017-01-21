@@ -19,8 +19,8 @@ namespace Engine {
 			this->z = z;
 		}
 
-		Point3D* Point3D::clone() const {
-			return new Point3D(this->getX(), this->getY(), this->getZ());
+		Point3D Point3D::clone() const {
+			return Point3D(this->getX(), this->getY(), this->getZ());
 		}
 
 		bool Point3D::operator==(const Point3D& rhs) const

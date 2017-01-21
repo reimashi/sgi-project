@@ -7,10 +7,10 @@ namespace Engine {
 
 		Face3P::~Face3P() {}
 
-		Point3D Face3P::getPointA() const { return *(this->pointA.clone()); }
-		Point3D Face3P::getPointB() const { return *(this->pointB.clone()); }
-		Point3D Face3P::getPointC() const { return *(this->pointC.clone()); }
-		Vector3D Face3P::getNormal() const { return *(this->normal.clone()); }
+		Point3D Face3P::getPointA() const { return this->pointA.clone(); }
+		Point3D Face3P::getPointB() const { return this->pointB.clone(); }
+		Point3D Face3P::getPointC() const { return this->pointC.clone(); }
+		Vector3D Face3P::getNormal() const { return *this->normal.clone(); }
 
 		Face3P* Face3P::clone() const {
 			return new Face3P(this->getPointA(), this->getPointB(), this->getPointC(), this->getNormal());

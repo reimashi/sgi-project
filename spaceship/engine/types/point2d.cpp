@@ -28,8 +28,8 @@ namespace Engine {
 			this->y = y;
 		}
 
-		Point2D* Point2D::clone() const {
-			return new Point2D(this->getX(), this->getY());
+		Point2D Point2D::clone() const {
+			return Point2D(this->getX(), this->getY());
 		}
 
 		bool Point2D::operator==(const Point2D& rhs) const

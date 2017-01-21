@@ -20,7 +20,7 @@ namespace Engine {
 			float_t getY() const;
 			void setY(float_t x);
 
-			Point2D* clone() const;
+			Point2D clone() const;
 
 			bool operator==(const Point2D& rhs) const;
 			bool operator!=(const Point2D& rhs) const;

@@ -73,7 +73,7 @@ namespace Engine {
 
 		Types::Point3D SceneObject::getPosition() const
 		{
-			return *(this->position.clone());
+			return this->position.clone();
 		}
 
 		void SceneObject::addChild(SceneObject* child) {
@@ -100,7 +100,7 @@ namespace Engine {
 
 		Types::Point3D SceneObject::getNormalizedPosition() const
 		{
-			Types::Point3D pos = *this->position.clone();
+			Types::Point3D pos = this->position.clone();
 
 			if (this->parent != nullptr)
 			{
@@ -134,7 +134,7 @@ namespace Engine {
 
 		Types::Point3D SceneObject::getHeadParentPosition() const
 		{
-			if (this->parent == nullptr) return *(this->position.clone());
+			if (this->parent == nullptr) return this->position.clone();
 			else return this->parent->getHeadParentPosition();
 		}
 

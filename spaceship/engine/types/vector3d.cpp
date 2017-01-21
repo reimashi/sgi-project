@@ -11,7 +11,7 @@ namespace Engine {
 		{
 		}
 
-		Point3D Vector3D::getPoint() const { return *(this->point.clone()); }
+		Point3D Vector3D::getPoint() const { return this->point.clone(); }
 
 		float_t Vector3D::getMagnitude() const
 		{
@@ -20,7 +20,7 @@ namespace Engine {
 
 		Vector3D* Vector3D::clone() const
 		{
-			return new Vector3D(*(this->point.clone()));
+			return new Vector3D(this->point.clone());
 		}
 
 		bool Vector3D::operator==(const Vector3D& rhs) const {

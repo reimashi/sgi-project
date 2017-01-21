@@ -17,7 +17,7 @@ namespace Engine {
 			float_t getZ() const;
 			void setZ(float_t z);
 
-			Point3D* clone() const;
+			Point3D clone() const;
 
 			bool operator==(const Point3D& rhs) const;
 			bool operator!=(const Point3D& rhs) const; 

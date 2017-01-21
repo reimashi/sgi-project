@@ -15,7 +15,7 @@ namespace Engine {
 		{
 		}
 
-		Point2D Vector2D::getPoint() const { return *(this->point.clone()); }
+		Point2D Vector2D::getPoint() const { return this->point.clone(); }
 
 		float_t Vector2D::getMagnitude() const
 		{
@@ -24,7 +24,7 @@ namespace Engine {
 
 		Vector2D* Vector2D::clone() const
 		{
-			return new Vector2D(*(this->point.clone()));
+			return new Vector2D(this->point.clone());
 		}
 
 		bool Vector2D::operator==(const Vector2D& rhs) const {

@@ -105,7 +105,7 @@ namespace Engine {
 			~Controller();
 
 			void startUpdate();
-			void updateMouseMove(Types::Point2D* position);
+			void updateMouseMove(Types::Point2D position);
 			void updateKeyPress(ControlKey key);
 
 		public:
