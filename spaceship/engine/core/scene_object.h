@@ -49,7 +49,7 @@ namespace Engine {
 			/**
 			 * \brief Invoca internamente el dibujado del objeto.
 			 */
-			void internalDraw();
+			virtual void internalDraw(bool inhibit_draw = false);
 
 			/**
 			 * \brief Metodo especifico a sobreescribir para el dibujado de un objeto.

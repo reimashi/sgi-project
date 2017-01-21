@@ -1,21 +1,24 @@
 #include "object3d.h"
 #include <typeinfo>
+#include "../io/tga_image.h"
+#include "../materials/tga_material.h"
 
 namespace Engine {
 	namespace Core {
 		Object3D::Object3D(Mesh geom, Material* mat) : geometry(geom)
 		{
-			if (mat == nullptr) this->material = new Materials::ColorMaterial(0, 0, 0);
+			if (mat == nullptr) this->material = new Materials::ColorMaterial(1.0, 1.0, 1.0);
 		}
 
 		Object3D::~Object3D()
 		{
 		}
 
-		void Object3D::draw() {
+		void Object3D::internalDraw(bool inhibit_draw) {
+			SceneObject::internalDraw(true);
 
 			glPushMatrix();
-			
+
 			Types::Point3D rot = this->getNormalizedRotation();
 			Types::Point3D pos = this->getNormalizedPosition();
 			Types::Point3D parentPos = this->getHeadParentPosition();
@@ -31,6 +34,12 @@ namespace Engine {
 			//std::cout << "Trasladando con " << this->position.getX() << " - " << this->position.getY() << " - " << this->position.getZ() << std::endl;
 			glTranslatef(pos.getX(), pos.getY(), pos.getZ());
 
+			this->draw();
+
+			glPopMatrix();
+		}
+
+		void Object3D::draw() {
 			this->material->preDraw();
 
 			glBegin(GL_TRIANGLES);
@@ -42,8 +51,6 @@ namespace Engine {
 			glEnd();
 
 			this->material->postDraw();
-
-			glPopMatrix();
 		}
 
 		/*void Object3D::compile()

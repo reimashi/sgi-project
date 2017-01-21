@@ -9,7 +9,6 @@ namespace Engine {
 			Material();
 			virtual ~Material();
 
-		protected:
 			virtual void preDraw() = 0;
 			virtual void postDraw() = 0;
 		};

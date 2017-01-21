@@ -13,9 +13,9 @@ namespace Engine {
 		{
 		}
 
-		void SceneObject::internalDraw() {
+		void SceneObject::internalDraw(bool inhibit_draw) {
 			if (this->isVisible()) {
-				this->draw();
+				if (!inhibit_draw) this->draw();
 
 				for (std::list<SceneObject*>::iterator it = this->childs.begin(); it != this->childs.end(); ++it) {
 					(*it)->internalDraw();

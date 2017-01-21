@@ -18,8 +18,6 @@ namespace Engine {
 			static uint64_t idIndex;
 
 			uint64_t id;
-			std::vector <Types::Point3D> vertices;
-			std::vector <Types::Face3P> faces;
 
 			void addVertex(Types::Point3D vertex);
 			void addFace(Types::Face3P face);
@@ -27,6 +25,9 @@ namespace Engine {
 		public:
 			Mesh();
 			~Mesh();
+
+			std::vector <Types::Point3D> vertices;
+			std::vector <Types::Face3P> faces;
 
 			uint64_t getId() const;
 

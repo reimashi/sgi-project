@@ -20,7 +20,7 @@ namespace Engine {
 		void ColorMaterial::preDraw()
 		{
 			glColor3f(this->red, this->green, this->blue);
-			std::cout << "Deberia dibujar" << std::endl;
+			std::cout << "Deberia dibujar un color" << std::endl;
 		}
 
 		void ColorMaterial::postDraw()

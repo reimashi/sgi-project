@@ -22,11 +22,12 @@ namespace Engine {
 			Object3D(Mesh geom = Mesh(), Material* mat = nullptr);
 			~Object3D();
 
-			void draw();
-
-		private:
+		protected:
 			Mesh geometry;
 			Material* material;
+
+			void internalDraw(bool inhibit_draw = false) override;
+			virtual void draw() override;
 		};
 	}
 }
