@@ -1,8 +1,10 @@
 #pragma once
 
 #include <list>
+#include <stdlib.h>
 #include "../types/point3d.h"
 #include "../utils/logger.h"
+#include <GL/glut.h>
 
 namespace Engine {
 	namespace Core {
@@ -28,7 +30,7 @@ namespace Engine {
 			/**
 			 * \brief Puntero al objeto padre, si existe
 			 */
-			SceneObject* parent = NULL;
+			SceneObject* parent = nullptr;
 
 			/**
 			 * \brief Rotación del objeto con respecto a su padre
@@ -36,9 +38,24 @@ namespace Engine {
 			Types::Point3D rotation;
 
 			/**
-			 * \brief Posición del objeto con respecto a su padre
-			 */
+			* \brief Posición del objeto con respecto a su padre
+			*/
 			Types::Point3D position;
+
+			/**
+			* \brief Escala del objeto
+			*/
+			float_t scaleFactor = 1;
+
+			/**
+			* \brief Establece si el objeto necesita ser recompilado en la proxima renderizacion
+			*/
+			bool recompile = true;
+
+			/**
+			* \brief Puntero a objeto compilado OpenGL
+			*/
+			GLuint openglPtr = 0;
 
 			/**
 			 * \brief Establece el objeto padre de este objeto.
@@ -81,12 +98,20 @@ namespace Engine {
 			virtual void translate(float_t x, float_t y, float_t z);
 
 			/**
+			* \brief Escala el tamaño del objeto
+			* \param sca Porcentage al que escalar
+			*/
+			virtual void scale(float_t sca);
+
+			/**
 			* \brief Mueve el objeto a una posición
 			* \param x Coordenadas en el eje x
 			* \param y Coordenadas en el eje y
 			* \param z Coordenadas en el eje z
 			*/
 			virtual void setPosition(Types::Point3D pos);
+
+			Types::Point3D getPosition() const;
 
 			/**
 			 * \brief Añade un objeto hijo al objeto.
@@ -116,7 +141,7 @@ namespace Engine {
 			 * \brief Comprueba si un objeto es visible.
 			 * \return TRUE si es visible.
 			 */
-			bool isVisible();
+			bool isVisible() const;
 		};
 	}
 }

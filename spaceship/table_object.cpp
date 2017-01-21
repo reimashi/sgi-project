@@ -3,8 +3,9 @@
 
 TableObject::TableObject() : Object3D(Core::Mesh::getRectangle(1.22, 2.44))
 {
-	this->material = new Materials::ColorMaterial(0.3, 0.3, 0.3);
-	//this->material = new Materials::TGAMaterial(IO::TGAImage::Load(".\\table.tga"));
+	//this->material = new Materials::ColorMaterial(0.3, 0.3, 0.3);
+	this->material = new Materials::TGAMaterial(IO::TGAImage::Load(".\\table.tga"));
+	this->scale(1.5);
 }
 
 TableObject::~TableObject()
@@ -15,16 +16,16 @@ void TableObject::draw() {
 	std::cout << "Deberia dibujar un plano" << this->geometry.faces[0].getPointC().getX() << std::endl;
 	this->material->preDraw();
 
-	glBegin(GL_TRIANGLES);
+	glBegin(GL_QUADS);
 
-	//glTexCoord2d(0, 0);
-	glVertex3f(this->geometry.faces[0].getPointA().getX(), this->geometry.faces[0].getPointA().getY(), this->geometry.faces[0].getPointA().getZ());
-	//glTexCoord2d(0, 1);
-	glVertex3f(this->geometry.faces[0].getPointB().getX(), this->geometry.faces[0].getPointB().getY(), this->geometry.faces[0].getPointB().getZ());
-	//glTexCoord2d(1, 0);
-	glVertex3f(this->geometry.faces[0].getPointC().getX(), this->geometry.faces[0].getPointC().getY(), this->geometry.faces[0].getPointC().getZ());
-	//glTexCoord2d(1, 1);
-	glVertex3f(this->geometry.faces[1].getPointC().getX(), this->geometry.faces[1].getPointC().getY(), this->geometry.faces[1].getPointC().getZ());
+	glTexCoord2d(1, 1);
+	glVertex3f(this->geometry.vertices[0].getX(), this->geometry.vertices[0].getY(), this->geometry.vertices[0].getZ());
+	glTexCoord2d(1, 0);
+	glVertex3f(this->geometry.vertices[1].getX(), this->geometry.vertices[1].getY(), this->geometry.vertices[1].getZ());
+	glTexCoord2d(0, 1);
+	glVertex3f(this->geometry.vertices[2].getX(), this->geometry.vertices[2].getY(), this->geometry.vertices[2].getZ());
+	glTexCoord2d(0, 0);
+	glVertex3f(this->geometry.vertices[3].getX(), this->geometry.vertices[3].getY(), this->geometry.vertices[3].getZ());
 
 	glEnd();
 

@@ -34,5 +34,14 @@ namespace Engine {
 		{
 			return !operator==(rhs);
 		}
+
+		float_t Point3D::distance(const Point3D& rhs) const
+		{
+			return abs(sqrtf(
+				powf(rhs.x - this->x, 2) +
+				powf(rhs.y - this->y, 2) +
+				powf(rhs.z - this->z, 2)
+			));
+		}
 	}
 }

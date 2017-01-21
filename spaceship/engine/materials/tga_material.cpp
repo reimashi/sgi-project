@@ -6,8 +6,9 @@ namespace Engine {
 		TGAMaterial::TGAMaterial(IO::TGAImage img) : image(img)
 		{
 			glGenTextures(1, &this->texturePtr);
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			glBindTexture(GL_TEXTURE_2D, this->texturePtr);
+
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 			glTexImage2D(GL_TEXTURE_2D, 0, image.getPixelSize(), image.getWidth(), image.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image.getDataPtr());
 
@@ -25,7 +26,7 @@ namespace Engine {
 		void TGAMaterial::preDraw()
 		{
 			std::cout << "Deberia dibujar una textura" << std::endl;
-			
+			glColor3f(1, 1, 1);
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, this->texturePtr);
 		}

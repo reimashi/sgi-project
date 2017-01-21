@@ -42,6 +42,7 @@
     <ClCompile Include="engine\io\tga_image.cpp" />
     <ClCompile Include="engine\materials\tga_material.cpp" />
     <ClCompile Include="engine\utils\obj_loader.cpp" />
+    <ClCompile Include="engine\types\vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="opengl\glig.h">
@@ -73,8 +74,12 @@
     <ClInclude Include="engine\io\tga_image.h" />
     <ClInclude Include="engine\materials\tga_material.h" />
     <ClInclude Include="engine\utils\obj_loader.h" />
+    <ClInclude Include="engine\types\vector2d.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="table.tga" />
   </ItemGroup>
 </Project>

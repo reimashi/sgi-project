@@ -8,6 +8,7 @@ namespace Engine {
 		Object3D::Object3D(Mesh geom, Material* mat) : geometry(geom)
 		{
 			if (mat == nullptr) this->material = new Materials::ColorMaterial(1.0, 1.0, 1.0);
+			this->openglPtr = glGenLists(1);
 		}
 
 		Object3D::~Object3D()
@@ -17,28 +18,46 @@ namespace Engine {
 		void Object3D::internalDraw(bool inhibit_draw) {
 			SceneObject::internalDraw(true);
 
-			glPushMatrix();
+			if (this->recompile) {
+				glNewList(this->openglPtr, GL_COMPILE_AND_EXECUTE);
+				glPushMatrix();
 
-			Types::Point3D rot = this->getNormalizedRotation();
-			Types::Point3D pos = this->getNormalizedPosition();
-			Types::Point3D parentPos = this->getHeadParentPosition();
+				Types::Point3D rot = this->getNormalizedRotation();
+				Types::Point3D pos = this->getNormalizedPosition();
+				Types::Point3D parentPos = this->getHeadParentPosition();
 
-			//std::cout << "Trasladando " << parentPos.getX() << " - " << parentPos.getY() << " - " << parentPos.getZ() << std::endl;
-			glTranslatef(parentPos.getX(), parentPos.getY(), parentPos.getZ());
+				glScalef(this->scaleFactor, this->scaleFactor, this->scaleFactor);
 
-			//std::cout << "Rotando " << rot.getX() << " - " << rot.getY() << " - " << rot.getZ() << std::endl;
-			if (rot.getX() != 0.0) glRotatef(rot.getX(), 1, 0, 0);
-			if (rot.getY() != 0.0) glRotatef(rot.getY(), 0, 1, 0);
-			if (rot.getZ() != 0.0) glRotatef(rot.getZ(), 0, 0, 1);
+				// Traslado a la posicion del padre o a 0,0,0 por defecto
+				glTranslatef(parentPos.getX(), parentPos.getY(), parentPos.getZ());
 
-			//std::cout << "Trasladando con " << this->position.getX() << " - " << this->position.getY() << " - " << this->position.getZ() << std::endl;
-			glTranslatef(pos.getX(), pos.getY(), pos.getZ());
+				// Rotando el modelo
+				if (rot.getX() != 0.0) glRotatef(rot.getX(), 1, 0, 0);
+				if (rot.getY() != 0.0) glRotatef(rot.getY(), 0, 1, 0);
+				if (rot.getZ() != 0.0) glRotatef(rot.getZ(), 0, 0, 1);
 
-			this->draw();
+				// Traslado a la posicion del objeto
+				glTranslatef(pos.getX(), pos.getY(), pos.getZ());
 
-			glPopMatrix();
+				glPushMatrix();
+				this->draw();
+				glPopMatrix();
+
+				glPopMatrix();
+				glEndList();
+
+				this->recompile = false;
+			}
+			else
+			{
+				glCallList(this->openglPtr);
+			}
 		}
 
+		/**
+		 * \brief Ejecuta el dibujado del objeto 3D
+		 * Método de dibujado por defecto para objetos 3D en el que solo se pintan las caras.
+		 */
 		void Object3D::draw() {
 			this->material->preDraw();
 

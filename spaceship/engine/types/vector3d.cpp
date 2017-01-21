@@ -44,7 +44,7 @@ namespace Engine {
 			Point3D rhsp = rhs.getPoint();
 			float_t ep = this->point.getX() * rhsp.getX() +
 				this->point.getY() * rhsp.getY() +
-				this->point.getY() * rhsp.getY();
+				this->point.getZ() * rhsp.getZ();
 			return acosf(ep/(this->getMagnitude() + rhs.getMagnitude()));
 		}
 

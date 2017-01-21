@@ -152,6 +152,7 @@
     <ClCompile Include="engine\materials\color_material.cpp" />
     <ClCompile Include="engine\core\camera.cpp" />
     <ClCompile Include="engine\io\controller.cpp" />
+    <ClCompile Include="engine\types\vector2d.cpp" />
     <ClCompile Include="engine\utils\logger.cpp" />
     <ClCompile Include="engine\core\engine.cpp" />
     <ClCompile Include="engine\core\scene.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="engine\materials\color_material.h" />
     <ClInclude Include="engine\core\camera.h" />
     <ClInclude Include="engine\io\controller.h" />
+    <ClInclude Include="engine\types\vector2d.h" />
     <ClInclude Include="engine\utils\logger.h" />
     <ClInclude Include="engine\core\engine.h" />
     <ClInclude Include="engine\engine.h" />
@@ -206,6 +208,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="table.tga">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

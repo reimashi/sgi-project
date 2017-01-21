@@ -20,7 +20,9 @@ namespace Engine {
 			Point3D* clone() const;
 
 			bool operator==(const Point3D& rhs) const;
-			bool operator!=(const Point3D& rhs) const;
+			bool operator!=(const Point3D& rhs) const; 
+			
+			float_t Point3D::distance(const Point3D& rhs) const;
 		};
 	}
 }

@@ -43,12 +43,23 @@ namespace Engine {
 			this->rotation.setX(ix);
 			this->rotation.setY(iy);
 			this->rotation.setZ(iz);
+
+			this->recompile = true;
 		}
 
 		void SceneObject::translate(float_t x, float_t y, float_t z) {
 			this->position.setX(this->position.getX() + x);
 			this->position.setY(this->position.getY() + y);
 			this->position.setZ(this->position.getZ() + z);
+
+			this->recompile = true;
+		}
+
+		void SceneObject::scale(float_t sca)
+		{
+			this->scaleFactor = this->scaleFactor * sca;
+
+			this->recompile = true;
 		}
 
 		void SceneObject::setPosition(Types::Point3D pos)
@@ -56,12 +67,21 @@ namespace Engine {
 			this->position.setX(pos.getX());
 			this->position.setY(pos.getY());
 			this->position.setZ(pos.getZ());
+
+			this->recompile = true;
+		}
+
+		Types::Point3D SceneObject::getPosition() const
+		{
+			return *(this->position.clone());
 		}
 
 		void SceneObject::addChild(SceneObject* child) {
 			if (!(std::find(this->childs.begin(), this->childs.end(), child) != this->childs.end())) {
 				this->childs.push_back(child);
 				child->setParent(this);
+
+				this->recompile = true;
 			}
 		}
 
@@ -69,6 +89,8 @@ namespace Engine {
 			if ((std::find(this->childs.begin(), this->childs.end(), child) != this->childs.end())) {
 				this->childs.remove(child);
 				child->setParent(NULL);
+
+				this->recompile = true;
 			}
 		}
 
@@ -120,7 +142,7 @@ namespace Engine {
 			this->visible = show;
 		}
 
-		bool SceneObject::isVisible() {
+		bool SceneObject::isVisible() const {
 			return this->visible;
 		}
 	}

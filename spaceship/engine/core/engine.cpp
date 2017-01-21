@@ -25,6 +25,7 @@ namespace Engine {
 
 		Engine::~Engine()
 		{
+			delete this->windowSize;
 		}
 
 		void Engine::loop() {
@@ -96,6 +97,7 @@ namespace Engine {
 
 		void Engine::resize(Types::Dimension2D *size) {
 			glutSetWindow(this->windowPtr);
+			delete this->windowSize;
 			this->windowSize = size;
 			glutReshapeWindow((int)this->windowSize->getWidth(), (int)this->windowSize->getHeight());
 		}
