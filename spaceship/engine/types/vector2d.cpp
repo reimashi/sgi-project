@@ -22,9 +22,9 @@ namespace Engine {
 			return sqrtf(powf(this->point.getX(), 2) + powf(this->point.getY(), 2));
 		}
 
-		Vector2D* Vector2D::clone() const
+		Vector2D Vector2D::clone() const
 		{
-			return new Vector2D(this->point.clone());
+			return Vector2D(this->point.clone());
 		}
 
 		bool Vector2D::operator==(const Vector2D& rhs) const {
@@ -43,12 +43,31 @@ namespace Engine {
 			return Vector2D(Point2D(this->point.getX() - rhs.getPoint().getX(), this->point.getY() - rhs.getPoint().getY()));
 		}
 
+		Vector2D Vector2D::operator+(const Vector2D& rhs) const {
+			return Vector2D(Point2D(this->point.getX() + rhs.getPoint().getX(), this->point.getY() + rhs.getPoint().getY()));
+		}
+
+		Vector2D Vector2D::operator/(const float_t value) const {
+			return Vector2D(Point2D(this->point.getX() / value, this->point.getY() / value));
+		}
+
+		Vector2D Vector2D::operator*(const float_t value) const {
+			return Vector2D(Point2D(this->point.getX() * value, this->point.getY() * value));
+		}
+
 		float_t Vector2D::angle(const Vector2D& rhs) const
 		{
 			Point2D rhsp = rhs.getPoint();
 			float_t ep = this->point.getX() * rhsp.getX() +
 				this->point.getY() * rhsp.getY();
 			return acosf(ep/(this->getMagnitude() + rhs.getMagnitude()));
+		}
+
+		float_t Vector2D::dot(const Vector2D& rhs) const
+		{
+			float_t result = 0.0f;
+			result = this->point.getX() * rhs.getPoint().getX() + this->point.getY() * rhs.getPoint().getY();
+			return result;
 		}
 
 		Vector2D Vector2D::getNull() { return Vector2D(Point2D(0, 0)); }

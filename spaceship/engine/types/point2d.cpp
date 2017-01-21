@@ -42,5 +42,16 @@ namespace Engine {
 		{
 			return !operator==(rhs);
 		}
+
+		Point2D Point2D::operator-() const { return Point2D(-this->x, -this->y); }
+		Point2D Point2D::operator-(const Point2D& rhs) const { return Point2D(rhs.x - this->x, rhs.y - this->y); }
+
+		float_t Point2D::distance(const Point2D& rhs) const
+		{
+			return abs(sqrtf(
+				powf(rhs.x - this->x, 2) +
+				powf(rhs.y - this->y, 2)
+			));
+		}
 	}
 }

@@ -18,7 +18,9 @@ public:
 	GameScene();
 	~GameScene();
 
-	void init();
-	void loop();
+	void init() override;
+	void loop() override;
+
+	static void resolveCollision(PuckObject* puck, MalletObject* mallet);
 };
 

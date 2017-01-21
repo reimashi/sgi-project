@@ -15,7 +15,7 @@ namespace Engine {
 			Point3D getPoint() const;
 			float_t getMagnitude() const;
 
-			Vector3D* clone() const;
+			Vector3D clone() const;
 
 			float_t angle(const Vector3D& rhs) const;
 

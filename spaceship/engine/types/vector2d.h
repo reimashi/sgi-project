@@ -16,14 +16,18 @@ namespace Engine {
 			Point2D getPoint() const;
 			float_t getMagnitude() const;
 
-			Vector2D* clone() const;
+			Vector2D clone() const;
 
 			float_t angle(const Vector2D& rhs) const;
+			float_t dot(const Vector2D& rhs) const;
 
 			bool operator==(const Vector2D& rhs) const;
 			bool operator!=(const Vector2D& rhs) const;
 			Vector2D operator-() const;
 			Vector2D operator-(const Vector2D& rhs) const;
+			Vector2D operator+(const Vector2D& rhs) const;
+			Vector2D operator/(const float_t value) const;
+			Vector2D operator*(const float_t value) const;
 
 			static Vector2D getNull();
 			static Vector2D xAxis();

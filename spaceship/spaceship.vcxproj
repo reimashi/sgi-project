@@ -172,6 +172,7 @@
     <ClCompile Include="game_scene.cpp" />
     <ClCompile Include="engine\types\vector3d.cpp" />
     <ClCompile Include="puck_object.cpp" />
+    <ClCompile Include="table_item.cpp" />
     <ClCompile Include="table_object.cpp" />
     <ClCompile Include="engine\io\tga_image.cpp" />
     <ClCompile Include="engine\materials\tga_material.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="game_scene.h" />
     <ClInclude Include="engine\types\vector3d.h" />
     <ClInclude Include="puck_object.h" />
+    <ClInclude Include="table_item.h" />
     <ClInclude Include="table_object.h" />
     <ClInclude Include="engine\io\tga_image.h" />
     <ClInclude Include="engine\materials\tga_material.h" />

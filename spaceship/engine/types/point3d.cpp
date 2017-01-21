@@ -43,5 +43,8 @@ namespace Engine {
 				powf(rhs.z - this->z, 2)
 			));
 		}
+
+		Point3D Point3D::operator-() const { return Point3D(-this->x, -this->y, -this->z); }
+		Point3D Point3D::operator-(const Point3D& rhs) const { return Point3D(rhs.x - this->x, rhs.y - this->y, rhs.z - this->z); }
 	}
 }

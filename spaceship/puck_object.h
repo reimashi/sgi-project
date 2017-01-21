@@ -1,19 +1,14 @@
 #pragma once
 #include "./engine/core/object3d.h"
 #include "engine/types/vector2d.h"
+#include "table_item.h"
 
 using namespace Engine;
 
-class PuckObject : public Core::Object3D
+class PuckObject : public TableItem
 {
-private:
-	Types::Vector2D direction;
-
 public:
 	PuckObject();
 	~PuckObject();
-
-	void reverseDirectionX();
-	void reverseDirectionY();
 };
 

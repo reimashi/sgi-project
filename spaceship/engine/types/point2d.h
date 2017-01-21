@@ -24,6 +24,10 @@ namespace Engine {
 
 			bool operator==(const Point2D& rhs) const;
 			bool operator!=(const Point2D& rhs) const;
+			Point2D operator-() const;
+			Point2D operator-(const Point2D& rhs) const;
+
+			float_t Point2D::distance(const Point2D& rhs) const;
 		};
 	}
 }

@@ -18,9 +18,9 @@ namespace Engine {
 			return sqrtf(powf(this->point.getX(), 2) + powf(this->point.getY(), 2) + powf(this->point.getZ(), 2));
 		}
 
-		Vector3D* Vector3D::clone() const
+		Vector3D Vector3D::clone() const
 		{
-			return new Vector3D(this->point.clone());
+			return Vector3D(this->point.clone());
 		}
 
 		bool Vector3D::operator==(const Vector3D& rhs) const {
