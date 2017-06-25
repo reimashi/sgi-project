@@ -3,6 +3,9 @@
 
 namespace Engine {
 	namespace Types {
+		/**
+		* \brief Clase que representa un vector (dirección y magnitud) en un espacio de 2 dimensiones.
+		*/
 		class Vector2D
 		{
 		protected:
@@ -28,6 +31,9 @@ namespace Engine {
 			Vector2D operator+(const Vector2D& rhs) const;
 			Vector2D operator/(const float_t value) const;
 			Vector2D operator*(const float_t value) const;
+
+			static Vector2D flipOverX(const Vector2D* in);
+			static Vector2D flipOverY(const Vector2D* in);
 
 			static Vector2D getNull();
 			static Vector2D xAxis();

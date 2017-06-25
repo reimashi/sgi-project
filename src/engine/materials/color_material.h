@@ -5,6 +5,9 @@
 
 namespace Engine {
 	namespace Materials {
+		/**
+		* \brief Material de tipo color solido
+		*/
 		class ColorMaterial : public Core::Material
 		{
 		protected:

@@ -5,7 +5,6 @@
 
 namespace Engine {
 	namespace Materials {
-
 		ColorMaterial::ColorMaterial(float_t r, float_t g, float_t b)
 		{
 			this->red = r;
@@ -20,7 +19,6 @@ namespace Engine {
 		void ColorMaterial::preDraw()
 		{
 			glColor3f(this->red, this->green, this->blue);
-			std::cout << "Deberia dibujar un color" << std::endl;
 		}
 
 		void ColorMaterial::postDraw()
@@ -28,6 +26,7 @@ namespace Engine {
 			glColor3f(0, 0, 0);
 		}
 
+		// Colores predefinidos
 		ColorMaterial ColorMaterial::White() { return ColorMaterial(1,1,1); }
 		ColorMaterial ColorMaterial::Blue() { return ColorMaterial(0,0,1); }
 		ColorMaterial ColorMaterial::Red() { return ColorMaterial(1,0,0); }

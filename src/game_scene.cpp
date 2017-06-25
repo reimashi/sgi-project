@@ -15,114 +15,104 @@ void GameScene::init()
 	this->addObject(this->table);
 
 	this->puck = new PuckObject();
-	this->puck->translate(-1.15, 0, 0);
 	this->addObject(this->puck);
 
 	this->mallet = new MalletObject();
 	this->addObject(this->mallet);
 
-	this->camera->setPosition(Types::Point3D(0, 1, -2.9));
+	this->camera->setTarget(Types::Point3D(0, 0, 0));
+	this->camera->setPosition(Types::Point3D(0, 2.5, 3));
 }
 
 void GameScene::loop()
 {
-	this->puck->updatePosition(23);
-	this->mallet->updatePosition(23);
+	float_t widthLimit = 4.6;
+	float_t depthLimit = 9.2;
+	Core::Engine *engine = &Core::Engine::getInstance();
 
-	// Obtenemos la posicion de los 3 elementos
-	Types::Point2D malletAPosition = Types::Point2D(this->mallet->getPosition().getX(), this->mallet->getPosition().getZ());
-	Types::Point2D malletBPosition = Types::Point2D(this->mallet->getPosition().getX(), this->mallet->getPosition().getZ());
-	Types::Point2D puckPosition = Types::Point2D(this->puck->getPosition().getX(), this->puck->getPosition().getZ());
+	// Control del mallet con el ratón
+	Types::Point2D mousePosition = this->controls->getMousePosition();
+	float_t malletXLimit = widthLimit - this->mallet->getCollisionRadius();
+	float_t malletZLimit = depthLimit - this->mallet->getCollisionRadius();
+	float_t malletX = (mousePosition.getX() / engine->getSize()->getWidth() * malletXLimit * 2) - malletXLimit;
+	float_t malletZ = (mousePosition.getY() / engine->getSize()->getHeight() * malletZLimit * 2) - malletZLimit;
+	this->mallet->setPosition(Types::Point3D(malletX, this->mallet->getPosition().getY(), malletZ));
 
-	float_t widthLimit = 4;
-	float_t depthLimit = 8.5;
-	float_t goalSize = 2.4;
-
-	std::cout << "Puck: " << malletAPosition.getX() << " - " << malletAPosition.getY() << std::endl;
-
-	// Calculamos si se ha salido del tablero, para anotar punto
-	if (puckPosition.getY() < -(depthLimit + this->puck->getCollisionRadius()) || puckPosition.getY() > (depthLimit + this->puck->getCollisionRadius()))
-	{
-		// TODO: Anotar punto en marcador
-		this->puck->setPosition(Types::Point3D(0, 0, -(depthLimit / 2)));
-	}
-
-	if (this->controls->isKeyPressed(IO::ControlKey::LEFT))
-	{
-		this->mallet->translate(-0.1, 0, 0);
-	}
-	else if (this->controls->isKeyPressed(IO::ControlKey::RIGHT))
-	{
-		this->mallet->translate(0.1, 0, 0);
-	}
-	else if (this->controls->isKeyPressed(IO::ControlKey::UP))
-	{
-		this->mallet->translate(0, 0, -0.1);
-	}
-	else if (this->controls->isKeyPressed(IO::ControlKey::DOWN))
-	{
-		this->mallet->translate(0, 0, 0.1);
-	}
-
-	//resolveCollision(this->puck, this->mallet);
+	resolveCollision(this->puck, this->mallet);
 
 	// Si choca contra los laterales del campo
-	bool noColision = false;
-	while (!noColision) {
-		if (puckPosition.getX() < -widthLimit + this->puck->getCollisionRadius())
+	bool colision = true;
+	while (colision) {
+		float_t width_max_limit = widthLimit - this->puck->getCollisionRadius();
+		float_t width_min_limit = -widthLimit + this->puck->getCollisionRadius();
+		float_t depth_max_limit = depthLimit - this->puck->getCollisionRadius();
+		float_t depth_min_limit = -depthLimit + this->puck->getCollisionRadius();
+
+		// Si el puck se intenta salir por la derecha.
+		if (this->puck->getPosition().getX() > width_max_limit)
 		{
-			float_t diff = (-widthLimit + this->puck->getCollisionRadius()) - puckPosition.getX();
-			if (diff > widthLimit) diff -= widthLimit;
-			puckPosition =Types::Point2D(-widthLimit + diff, puckPosition.getY());
-			this->puck->reverseDirectionX();
+			float_t diff = width_max_limit - (this->puck->getPosition().getX() - width_max_limit); // Calculamos cuanto se "ha pasado"
+			while (diff > widthLimit) diff -= widthLimit;
+			this->puck->setPosition(Types::Point3D(diff, this->puck->getPosition().getY(), this->puck->getPosition().getZ()));	// Establecemos la nueva posicion restando lo que se ha pasado
+			this->puck->setVelocity(Types::Vector3D::flipOverX(&this->puck->getVelocity())); // Cambiamos la dirección del movimiento sobre el eje correspondiente
+			std::cout << "Colision derecha" << std::endl;
+			colision = true; // Activamos el flag de colision
 		}
-		else if (puckPosition.getX() > widthLimit - this->puck->getCollisionRadius())
+		else if (this->puck->getPosition().getX() < width_min_limit)
 		{
-			float_t diff = puckPosition.getX() - (widthLimit - this->puck->getCollisionRadius());
-			if (diff > widthLimit) diff -= widthLimit;
-			puckPosition = Types::Point2D(widthLimit - diff, puckPosition.getY());
-			this->puck->reverseDirectionX();
+			float_t diff = width_min_limit - (this->puck->getPosition().getX() - width_min_limit);
+			while (diff < -widthLimit) diff += widthLimit;
+			this->puck->setPosition(Types::Point3D(diff, this->puck->getPosition().getY(), this->puck->getPosition().getZ()));
+			this->puck->setVelocity(Types::Vector3D::flipOverX(&this->puck->getVelocity()));
+			std::cout << "Colision izqui" << std::endl;
+			colision = true;
 		}
-		else if (puckPosition.getY() < -depthLimit + this->puck->getCollisionRadius() &&
-			puckPosition.getX() < -(widthLimit - (goalSize / 2)))
+		else if (this->puck->getPosition().getZ() > depth_max_limit)
 		{
-			float_t diff = (-depthLimit + this->puck->getCollisionRadius()) - puckPosition.getY();
-			if (diff > depthLimit) diff -= depthLimit;
-			puckPosition = Types::Point2D(puckPosition.getX(), depthLimit - diff);
-			this->puck->reverseDirectionY();
+			float_t diff = depth_max_limit - (this->puck->getPosition().getZ() - depth_max_limit);
+			while (diff > depthLimit) diff -= depthLimit;
+			this->puck->setPosition(Types::Point3D(this->puck->getPosition().getX(), this->puck->getPosition().getY(), diff));
+			this->puck->setVelocity(Types::Vector3D::flipOverZ(&this->puck->getVelocity()));
+			std::cout << "Colision fondo" << std::endl;
+			colision = true;
 		}
-		else if (puckPosition.getY() > depthLimit - this->puck->getCollisionRadius() &&
-			puckPosition.getX() > (widthLimit - (goalSize / 2)))
+		else if (this->puck->getPosition().getZ() < depth_min_limit)
 		{
-			float_t diff = puckPosition.getY() - (depthLimit - this->puck->getCollisionRadius());
-			if (diff > depthLimit) diff -= depthLimit;
-			puckPosition = Types::Point2D(puckPosition.getX(), depthLimit - diff);
-			this->puck->reverseDirectionY();
+			float_t diff = depth_min_limit - (this->puck->getPosition().getZ() - depth_min_limit);
+			while (diff < -depthLimit) diff += depthLimit;
+			this->puck->setPosition(Types::Point3D(this->puck->getPosition().getX(), this->puck->getPosition().getY(), diff));
+			this->puck->setVelocity(Types::Vector3D::flipOverZ(&this->puck->getVelocity()));
+			std::cout << "Colision pantalla" << std::endl;
+			colision = true;
 		}
-		else { }
-		this->puck->setPosition2D(puckPosition);
-		noColision = true;
+		else {
+			colision = false;
+		}
 	}
+
+	_sleep(30);
 }
 
 void GameScene::resolveCollision(PuckObject* puck, MalletObject* mallet)
 {
-	Types::Vector2D malletPosition = Types::Vector2D(mallet->getPosition2D());
-	Types::Vector2D puckPosition = Types::Vector2D(puck->getPosition2D());
+	Types::Vector3D malletPosition = mallet->getPosition();
+	Types::Vector3D puckPosition = puck->getPosition();
 
 	float_t collisionDistance = mallet->getCollisionRadius() + puck->getCollisionRadius();
 
 	// Vector de colisión
-	Types::Vector2D delta = puckPosition - malletPosition;
+	Types::Vector3D delta = puckPosition - malletPosition;
 
 	// Distancia entre los objetos
-	float_t distance = collisionDistance;
+	float_t distance = delta.getMagnitude();
 
+	std::cout << "Distancia con el mazo " << distance << " mazo " << mallet->getPosition() << " ficha " << puck->getPosition() << std::endl;
 	// Para evitar divisiones por 0
 	if (distance == 0.0) {
-		delta = Types::Vector2D(collisionDistance, 0.0);
+		delta = Types::Vector3D(collisionDistance, 0.0, 0.0);
 		distance = collisionDistance;
 	}
+
 
 	// Si la distancia no es suficiente para la colisión, no se hace nada
 	if (distance > collisionDistance)
@@ -130,18 +120,15 @@ void GameScene::resolveCollision(PuckObject* puck, MalletObject* mallet)
 		return;
 	}
 	else {
-		Types::Vector2D mtd = delta * ((collisionDistance - distance) / distance);
-		puckPosition = puckPosition + (mtd * (0.5 / 0.5 + 1));
-		puck->setPosition2D(puckPosition.getPoint());
+		// Consideramos el mallet inamovible y movemos el puck para evitarlo
+		Types::Vector3D mtd = delta * ((collisionDistance - distance) / distance);
+		puckPosition = puckPosition + (mtd * 2);
+		puck->setPosition(puckPosition.getPoint());
 
+
+		std::cout << "Colision con el mazo" << std::endl;
 
 		/*
-		std::cout << "collission d " << distance << std::endl;
-		std::cout << "collission pvel " << puckPosition.getX() << " - " << puckPosition.getY() << std::endl;
-		std::cout << "collission mvel " << malletPosition.getX() << " - " << malletPosition.getY() << std::endl;
-		std::cout << "collission vel " << collision.getPoint().getX() << " - " << collision.getPoint().getY() << std::endl;
-		// Get the components of the velocity vectors which are parallel to the collision.
-		// The perpendicular component remains the same for both fish
 		collision = collision / distance;
 		std::cout << "collission vel " << collision.getPoint().getX() << " - " << collision.getPoint().getY() << std::endl;
 		float_t aci = puck->getVelocity().dot(collision);

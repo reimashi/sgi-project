@@ -2,6 +2,10 @@
 
 namespace Engine {
 	namespace Core {
+		/**
+		* \brief Establece el titulo de la ventana del juego.
+		* \param title Texto del titulo.
+		*/
 		class Material
 		{
 			friend class Object3D;

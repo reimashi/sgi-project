@@ -14,9 +14,10 @@ namespace Engine {
 		class SceneObject {
 			friend class Engine;
 
-		protected:
+		private:
 			static Utils::Logger* logger;
 
+		protected:
 			/**
 			 * \brief El objeto es visible
 			 */
@@ -65,8 +66,10 @@ namespace Engine {
 
 			/**
 			 * \brief Invoca internamente el dibujado del objeto.
+			 * \param inhibit_draw Inhibir el dibujado de este objeto. Actualiza su estado pero no lo dibuja.
+			 * \param elapsed Tiempo transcurrido desde el ultimo dibujado de la escena.
 			 */
-			virtual void internalDraw(bool inhibit_draw = false);
+			virtual void internalDraw(bool inhibit_draw = false, double elapsed = 0);
 
 			/**
 			 * \brief Metodo especifico a sobreescribir para el dibujado de un objeto.
@@ -111,10 +114,25 @@ namespace Engine {
 			*/
 			virtual void setPosition(Types::Point3D pos);
 
+			/**
+			* \brief Mueve el objeto a una posición sobre el plano XY
+			* \param x Coordenadas en el eje x
+			* \param y Coordenadas en el eje y
+			*/
+			virtual void setPosition2D(Types::Point2D pos);
+
+			/**
+			* \brief Obtiene la posición del objeto respecto a la escena
+			*/
 			Types::Point3D getPosition() const;
 
 			/**
-			 * \brief Añade un objeto hijo al objeto.
+			* \brief Obtiene la posición del objeto sobre el plano XY de la escena
+			*/
+			Types::Point2D getPosition2D() const;
+
+			/**
+			 * \brief Añade un objeto hijo al objeto. Los objetos hijos se trasforman usando al padre como origen de coordenadas y por lo tanto se mueven de forma conjunta.
 			 * \param child Instancia del objeto hijo.
 			 */
 			void addChild(SceneObject* child);

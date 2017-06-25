@@ -4,6 +4,9 @@
 
 namespace Engine {
 	namespace Types {
+		/**
+		* \brief Clase que representa la cara de un mesh formada por un poligono triangular.
+		*/
 		class Face3P
 		{
 		protected:

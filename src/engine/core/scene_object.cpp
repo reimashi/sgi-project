@@ -13,12 +13,12 @@ namespace Engine {
 		{
 		}
 
-		void SceneObject::internalDraw(bool inhibit_draw) {
+		void SceneObject::internalDraw(bool inhibit_draw, double elapsed) {
 			if (this->isVisible()) {
 				if (!inhibit_draw) this->draw();
 
 				for (std::list<SceneObject*>::iterator it = this->childs.begin(); it != this->childs.end(); ++it) {
-					(*it)->internalDraw();
+					(*it)->internalDraw(inhibit_draw, elapsed);
 				}
 			}
 		}
@@ -71,9 +71,22 @@ namespace Engine {
 			this->recompile = true;
 		}
 
+		void SceneObject::setPosition2D(Types::Point2D pos)
+		{
+			this->position.setX(pos.getX());
+			this->position.setY(pos.getY());
+
+			this->recompile = true;
+		}
+
 		Types::Point3D SceneObject::getPosition() const
 		{
 			return this->position.clone();
+		}
+
+		Types::Point2D SceneObject::getPosition2D() const
+		{
+			return Types::Point2D(this->position.getX(), this->position.getZ());
 		}
 
 		void SceneObject::addChild(SceneObject* child) {

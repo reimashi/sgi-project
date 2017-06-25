@@ -1,11 +1,9 @@
 #pragma once
-#include "./engine/core/object3d.h"
-#include "engine/types/vector2d.h"
-#include "table_item.h"
+#include "engine/engine.h"
 
 using namespace Engine;
 
-class PuckObject : public TableItem
+class PuckObject : public Core::MovableObject3D
 {
 public:
 	PuckObject();

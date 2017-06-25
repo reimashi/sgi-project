@@ -25,7 +25,6 @@ namespace Engine {
 
 		void TGAMaterial::preDraw()
 		{
-			std::cout << "Deberia dibujar una textura" << std::endl;
 			glColor3f(1, 1, 1);
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, this->texturePtr);

@@ -7,6 +7,9 @@
 
 namespace Engine {
 	namespace Core {
+		/**
+		* \brief Escena del juego
+		*/
 		class Scene
 		{
 			friend class Engine;
@@ -17,7 +20,14 @@ namespace Engine {
 		public:
 			explicit Scene();
 
+			/**
+			* \brief Función de inicialización de la escena. Aqui se deben instanciar los objetos y cargar los archivos.
+			*/
 			virtual void init() = 0;
+
+			/**
+			* \brief Bucle principal del juego. Se ejecuta varias veces por segundo.
+			*/
 			virtual void loop() = 0;
 
 		protected:

@@ -13,6 +13,10 @@
 namespace Engine {
 	namespace Core { class Engine; } // Definición postergada para evitar dependencia circular.
 	namespace IO {
+
+		/**
+		* \brief Mapa de teclas de control
+		*/
 		enum class ControlKey {
 			BACKSPACE = 0x08,
 			TAB = 0x09,
@@ -92,6 +96,9 @@ namespace Engine {
 			ALT = 0xF302
 		};
 
+		/**
+		* \brief Clase que maneja todos los controles del game engine.
+		*/
 		class Controller : public Utils::Singleton<Controller>
 		{
 			friend class Core::Engine;
@@ -109,7 +116,17 @@ namespace Engine {
 			void updateKeyPress(ControlKey key);
 
 		public:
+			/**
+			* \brief Comprueba si una tecla ha sido pulsada (o se mantiene) desde el ultimo loop de la escena.
+			* \param key Tecla a comprobar.
+			* \return TRUE si la tecla ha sido pulsada.
+			*/
 			bool isKeyPressed(ControlKey key) const;
+
+			/**
+			* \brief Obtiene la posición actual del cursor del ratón.
+			* \return Posición del ratón dentro de la ventana.
+			*/
 			Types::Point2D getMousePosition() const;
 		};
 	}

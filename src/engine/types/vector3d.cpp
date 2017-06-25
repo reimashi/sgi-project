@@ -7,6 +7,10 @@ namespace Engine {
 		{
 		}
 
+		Vector3D::Vector3D(float_t x, float_t y, float_t z) : Vector3D(Point3D(x, y, z))
+		{
+		}
+
 		Vector3D::~Vector3D()
 		{
 		}
@@ -39,6 +43,18 @@ namespace Engine {
 			return Vector3D(Point3D(this->point.getX() - rhs.getPoint().getX(), this->point.getY() - rhs.getPoint().getY(), this->point.getZ() - rhs.getPoint().getZ()));
 		}
 
+		Vector3D Vector3D::operator+(const Vector3D& rhs) const {
+			return Vector3D(Point3D(this->point.getX() + rhs.getPoint().getX(), this->point.getY() + rhs.getPoint().getY(), this->point.getZ() + rhs.getPoint().getZ()));
+		}
+
+		Vector3D Vector3D::operator/(const float_t value) const {
+			return Vector3D(Point3D(this->point.getX() / value, this->point.getY() / value, this->point.getZ() / value));
+		}
+
+		Vector3D Vector3D::operator*(const float_t value) const {
+			return Vector3D(Point3D(this->point.getX() * value, this->point.getY() * value, this->point.getZ() * value));
+		}
+
 		float_t Vector3D::angle(const Vector3D& rhs) const
 		{
 			Point3D rhsp = rhs.getPoint();
@@ -48,9 +64,18 @@ namespace Engine {
 			return acosf(ep/(this->getMagnitude() + rhs.getMagnitude()));
 		}
 
+		Vector3D Vector3D::flipOverX(const Vector3D* in) { return Vector3D(Point3D(-in->getPoint().getX(), in->getPoint().getY(), in->getPoint().getZ())); }
+		Vector3D Vector3D::flipOverY(const Vector3D* in) { return Vector3D(Point3D(in->getPoint().getX(), -in->getPoint().getY(), in->getPoint().getZ())); }
+		Vector3D Vector3D::flipOverZ(const Vector3D* in) { return Vector3D(Point3D(in->getPoint().getX(), in->getPoint().getY(), -in->getPoint().getZ())); }
+
 		Vector3D Vector3D::getNull() { return Vector3D(Point3D(0,0,0)); }
 		Vector3D Vector3D::xAxis() { return Vector3D(Point3D(1, 0, 0)); }
 		Vector3D Vector3D::yAxis() { return Vector3D(Point3D(0, 1, 0)); }
 		Vector3D Vector3D::zAxis() { return Vector3D(Point3D(0, 0, 1)); }
+
+		std::ostream& operator<< (std::ostream& stream, const Vector3D& vector) {
+			stream << "(Vector3D x:" << vector.getPoint().getX() << " y:" << vector.getPoint().getY() << " z:" << vector.getPoint().getZ() << ")";
+			return stream;
+		}
 	}
 }

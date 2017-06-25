@@ -5,6 +5,9 @@
 
 namespace Engine {
 	namespace Types {
+		/**
+		* \brief Clase que representa unas dimensiones en un espacio de 3 dimensiones.
+		*/
 		class Dimension3D : Dimension2D
 		{
 		protected:

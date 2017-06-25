@@ -73,5 +73,8 @@ namespace Engine {
 		Vector2D Vector2D::getNull() { return Vector2D(Point2D(0, 0)); }
 		Vector2D Vector2D::xAxis() { return Vector2D(Point2D(1, 0)); }
 		Vector2D Vector2D::yAxis() { return Vector2D(Point2D(0, 1)); }
+
+		Vector2D Vector2D::flipOverX(const Vector2D* in) { return Vector2D(Point2D(-in->getPoint().getX(), in->getPoint().getY())); }
+		Vector2D Vector2D::flipOverY(const Vector2D* in) { return Vector2D(Point2D(in->getPoint().getX(), -in->getPoint().getY())); }
 	}
 }

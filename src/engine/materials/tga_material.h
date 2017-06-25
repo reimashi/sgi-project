@@ -7,6 +7,9 @@
 
 namespace Engine {
 	namespace Materials {
+		/**
+		* \brief Material de tipo textura creado a partir de una imagen TGA
+		*/
 		class TGAMaterial : public Core::Material
 		{
 		private:

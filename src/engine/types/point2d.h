@@ -4,6 +4,9 @@
 
 namespace Engine {
 	namespace Types {
+		/**
+		* \brief Clase que representa un punto en un espacio de 2 dimensiones.
+		*/
 		class Point2D
 		{
 		protected:

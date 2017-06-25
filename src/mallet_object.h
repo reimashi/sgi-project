@@ -1,12 +1,11 @@
 #pragma once
 
 #include "engine\engine.h"
-#include "table_item.h"
 
 using namespace Engine;
 
 
-class MalletObject : public TableItem
+class MalletObject : public Core::Object3D
 {
 public:
 	MalletObject();

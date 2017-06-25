@@ -4,6 +4,10 @@
 
 namespace Engine {
 	namespace Types {
+
+		/**
+		* \brief Clase que representa unas dimensiones en un espacio de 2 dimensiones.
+		*/
 		class Dimension2D
 		{
 		protected:

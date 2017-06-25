@@ -5,6 +5,9 @@
 
 namespace Engine {
 	namespace Types {
+		/**
+		* \brief Clase que representa un punto en un espacio de 3 dimensiones.
+		*/
 		class Point3D : public Point2D
 		{
 		protected:

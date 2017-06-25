@@ -1,4 +1,5 @@
 #include "engine.h"
+#include <iostream>
 #include <windows.h>
 
 namespace Engine {
@@ -45,7 +46,7 @@ namespace Engine {
 				glClear(GL_COLOR_BUFFER_BIT);
 
 				for (std::list<SceneObject*>::iterator it = this->scenePtr->objects.begin(); it != this->scenePtr->objects.end(); ++it) {
-					(*it)->internalDraw();
+					(*it)->internalDraw(false, 300); // TODO: Poner el counter bien
 				}
 			}
 			else {
@@ -59,12 +60,14 @@ namespace Engine {
 			this->controller->startUpdate();
 
 			// Control de FPS. Paramos el hilo de la logica hasta pasado el tiempo correspondiente.
-			long double currTime = static_cast<long double>(time(0));
-			if (this->initTime == 0) this->initTime = currTime;
-			else if (currTime < (this->initTime + (1000 / this->maxFps))) {
-				Sleep(static_cast<DWORD>((this->initTime + (1000 / this->maxFps)) - currTime));
+			if (this->loopCounter->get() < (1000 / this->maxFps)) {
+				long sleepTime = (this->loopCounter->get() - (1000 / this->maxFps));
+				_sleep(static_cast<DWORD>(sleepTime));
 			}
-			this->initTime = static_cast<long double>(time(0));
+
+			// Actualizamos el tiempo de inicio de la escena
+			this->loopCounter->reset();
+			//this->initTime = static_cast<long int>(time(nullptr));
 
 			// Pedimos a OpenGL que redibuje
 			// NOTA: Comentar esta linea evita el dibujado continuo de la escena. Para las animaciones pero permite hacer debug frame a frame.
@@ -73,6 +76,7 @@ namespace Engine {
 
 		void Engine::run(Core::Scene *scene) {
 			this->scenePtr = scene;
+			this->loopCounter = new Time::Counter();
 
 			glutDisplayFunc(Engine::loopCallback);
 			glutReshapeFunc(Engine::reshapeCallback);

@@ -13,20 +13,34 @@ namespace Engine {
 	namespace Core {
 		class Material;
 
-		/// <summary>
-		/// Clase que representa un objeto de 3 dimensiones.
-		/// </summary>
+		/**
+		* \brief Clase que representa un objeto de 3 dimensiones.
+		*/
 		class Object3D : public SceneObject
 		{
 		public:
 			Object3D(Mesh geom = Mesh(), Material* mat = nullptr);
 			~Object3D();
 
+			/**
+			* \brief Obtiene el radio de colision del objeto. (Sistema basico de colisiones basado en el radio)
+			* \return Radio de colision.
+			*/
+			float_t getCollisionRadius() const;
+
+			/**
+			* \brief Establece el radio de colision del objeto. (Sistema basico de colisiones basado en el radio)
+			* \param radius Radio de colision.
+			*/
+			void setCollisionRadius(const float_t radius);
+
 		protected:
 			Mesh geometry;
 			Material* material;
 
-			void internalDraw(bool inhibit_draw = false) override;
+			float_t collisionRadius = 0;
+
+			void internalDraw(bool inhibit_draw = false, double elapsed = 0) override;
 			virtual void draw() override;
 		};
 	}

@@ -15,8 +15,11 @@ namespace Engine {
 		{
 		}
 
-		void Object3D::internalDraw(bool inhibit_draw) {
-			SceneObject::internalDraw(true);
+		float_t Object3D::getCollisionRadius() const { return this->collisionRadius; }
+		void Object3D::setCollisionRadius(const float_t radius) { this->collisionRadius = radius; }
+
+		void Object3D::internalDraw(bool inhibit_draw, double elapsed) {
+			SceneObject::internalDraw(true, elapsed);
 
 			if (this->recompile) {
 				glNewList(this->openglPtr, GL_COMPILE_AND_EXECUTE);
