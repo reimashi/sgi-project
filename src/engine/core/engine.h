@@ -38,6 +38,7 @@ namespace Engine {
 			Time::Counter* loopCounter;
 
 			unsigned short maxFps = DEFAULT_MAX_FPS;
+			bool showFps = false;
 			std::string windowTitle;
 
 			Engine();
@@ -80,6 +81,11 @@ namespace Engine {
 			/// </summary>
 			static void keyboardSpecialCallback(int key, int x, int y);
 
+			/// <summary>
+			/// Renderiza los FPS como texto encima del juego
+			/// </summary>
+			void renderFPS();
+
 		public:
 
 			/**
@@ -111,6 +117,18 @@ namespace Engine {
 			* \return Tamaño de la ventana.
 			*/
 			Types::Dimension2D* getSize() const;
+
+			/**
+			* \brief Establece un limite de frames por segundo
+			* \param frames Limite de frames por segundo
+			*/
+			void setFramerateLimit(unsigned short frames);
+
+			/**
+			* \brief Des/Activa la visualización del framerate en el juego
+			* \param display TRUE para activar la visualización
+			*/
+			void displayFramerate(bool display);
 		};
 	}
 }

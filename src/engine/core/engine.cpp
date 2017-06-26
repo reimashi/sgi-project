@@ -1,5 +1,6 @@
 #include "engine.h"
 #include <iostream>
+#include <sstream>
 #include <windows.h>
 
 namespace Engine {
@@ -53,6 +54,10 @@ namespace Engine {
 				logger->error(__FUNCTION__, "No se ha definido una escena. Se ignora el loop");
 			}
 
+			// Si la opción está activada, se muestran los FPS en pantalla
+			if (this->showFps) this->renderFPS();
+
+			// Se vacían los buffers y se voltean
 			glFlush();
 			glutSwapBuffers();
 
@@ -62,7 +67,7 @@ namespace Engine {
 			// Control de FPS. Paramos el hilo de la logica hasta pasado el tiempo correspondiente.
 			if (this->loopCounter->get() < (1000 / this->maxFps)) {
 				long sleepTime = (this->loopCounter->get() - (1000 / this->maxFps));
-				_sleep(static_cast<DWORD>(sleepTime));
+				Sleep(static_cast<DWORD>(sleepTime));
 			}
 
 			// Actualizamos el tiempo de inicio de la escena
@@ -109,6 +114,28 @@ namespace Engine {
 		Types::Dimension2D* Engine::getSize() const {
 			return this->windowSize->clone();
 		}
+
+		void Engine::renderFPS() {
+			glColor3f(1.0f, 0.0f, 0.0f);
+			glRasterPos2i(1, 1);
+			
+			std::stringstream ss;
+			ss << this->maxFps << " FPS";
+
+			std::string s = ss.str();
+
+			void * font = GLUT_BITMAP_9_BY_15;
+
+			for (std::string::iterator i = s.begin(); i != s.end(); ++i)
+			{
+				char c = *i;
+				glutBitmapCharacter(font, c);
+			}
+		}
+
+		void Engine::setFramerateLimit(unsigned short frames) { this->maxFps = frames; }
+
+		void Engine::displayFramerate(bool display) { this->showFps = display; }
 
 #pragma region Callbacks de GLUT
 

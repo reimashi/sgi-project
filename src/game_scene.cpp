@@ -38,6 +38,10 @@ void GameScene::loop()
 	float_t depthLimit = this->table->getSize().getHeight();
 	Core::Engine *engine = &Core::Engine::getInstance();
 
+	// Manejo de opciones
+	if (this->controls->isKeyPressed(IO::ControlKey::F1)) engine->displayFramerate(true);
+	else if (this->controls->isKeyPressed(IO::ControlKey::F2)) engine->displayFramerate(false);
+
 	// Control del mallet con el ratón
 	Types::Point2D mousePosition = this->controls->getMousePosition();
 	float_t malletXLimit = widthLimit - this->mallet->getCollisionRadius();
