@@ -7,6 +7,9 @@
 
 using namespace Engine;
 
+/**
+* \brief Escena principal del juego
+*/
 class GameScene : public Core::Scene
 {
 private:
@@ -21,6 +24,11 @@ public:
 	void init() override;
 	void loop() override;
 
+	/**
+	* \brief Clase que maneja las colisiones entre el mazo de juego y la ficha
+	* \param puck Ficha del juego
+	* \brief mallet Maza del jugador
+	*/
 	static void resolveCollision(PuckObject* puck, MalletObject* mallet);
 };
 
