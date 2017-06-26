@@ -32,6 +32,7 @@ namespace Engine {
 
 			Vector3D operator/(const float_t value) const;
 			Vector3D operator*(const float_t value) const;
+			Vector3D operator*(const Vector3D& rhs) const;
 
 			friend std::ostream& operator<< (std::ostream& stream, const Vector3D& vector);
 

@@ -55,6 +55,13 @@ namespace Engine {
 			return Vector3D(Point3D(this->point.getX() * value, this->point.getY() * value, this->point.getZ() * value));
 		}
 
+		Vector3D Vector3D::operator*(const Vector3D& rhs) const {
+			return Vector3D(Point3D(
+				this->point.getY() * rhs.getPoint().getZ() - this->point.getZ() * rhs.getPoint().getY(),
+				this->point.getZ() * rhs.getPoint().getX() - this->point.getX() * rhs.getPoint().getZ(),
+				this->point.getX() * rhs.getPoint().getY() - this->point.getY() * rhs.getPoint().getX()));
+		}
+
 		float_t Vector3D::angle(const Vector3D& rhs) const
 		{
 			Point3D rhsp = rhs.getPoint();
