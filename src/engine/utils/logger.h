@@ -11,6 +11,9 @@
 
 namespace Engine {
 	namespace Utils {
+		/**
+		* \brief Clase para el manejo de logs de errores
+		*/
 		class Logger
 		{
 		private:
