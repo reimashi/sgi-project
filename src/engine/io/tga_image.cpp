@@ -1,4 +1,5 @@
 #include "tga_image.h"
+#include "../utils/logger.h"
 #include <fstream>
 #include <iostream>
 
@@ -20,6 +21,7 @@ namespace Engine {
 
 		TGAImage TGAImage::Load(std::string filename)
 		{
+			Utils::Logger* logger = Utils::Logger::getLogger(__FUNCTION__);
 			TGAImage image;
 
 			std::ifstream fileStream(filename, std::ios::in | std::ios::binary);
@@ -78,7 +80,7 @@ namespace Engine {
 
 				fileStream.close();
 			}
-			else std::cout << "Unable to open file";
+			else logger->error("Unable to open file");
 
 			return image;
 		}
